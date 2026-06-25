@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "JEE Main",
+    "slug": "jee-main",
+    "conductingBody": "National Testing Agency (NTA)",
+    "level": "National",
+    "category": "Engineering",
+    "applicationDeadline": "2026-01-15",
+    "examDate": "2026-01-24",
+    "mode": "Computer Based Test",
+    "officialWebsite": "https://jeemain.nta.nic.in"
+  },
+  {
+    "id": 2,
+    "name": "JEE Advanced",
+    "slug": "jee-advanced",
+    "conductingBody": "IIT",
+    "level": "National",
+    "category": "Engineering",
+    "applicationDeadline": "2026-04-30",
+    "examDate": "2026-05-24",
+    "mode": "Computer Based Test",
+    "officialWebsite": "https://jeeadv.ac.in"
+  },
+  {
+    "id": 3,
+    "name": "AP EAMCET",
+    "slug": "ap-eamcet",
+    "conductingBody": "APSCHE",
+    "level": "State",
+    "category": "Engineering & Agriculture",
+    "applicationDeadline": "2026-03-20",
+    "examDate": "2026-05-10",
+    "mode": "Computer Based Test",
+    "officialWebsite": "https://cets.apsche.ap.gov.in"
+  },
+  {
+    "id": 4,
+    "name": "TS EAMCET",
+    "slug": "ts-eamcet",
+    "conductingBody": "TGCHE",
+    "level": "State",
+    "category": "Engineering & Agriculture",
+    "applicationDeadline": "2026-04-04",
+    "examDate": "2026-05-05",
+    "mode": "Computer Based Test",
+    "officialWebsite": "https://eapcet.tgche.ac.in"
+  },
+  {
+    "id": 5,
+    "name": "NEET UG",
+    "slug": "neet-ug",
+    "conductingBody": "National Testing Agency (NTA)",
+    "level": "National",
+    "category": "Medical",
+    "applicationDeadline": "2026-03-10",
+    "examDate": "2026-05-03",
+    "mode": "Pen & Paper",
+    "officialWebsite": "https://neet.nta.nic.in"
+  },
+  {
+    "id": 6,
+    "name": "CUET UG",
+    "slug": "cuet-ug",
+    "conductingBody": "National Testing Agency (NTA)",
+    "level": "National",
+    "category": "University Entrance",
+    "applicationDeadline": "2026-03-30",
+    "examDate": "2026-05-20",
+    "mode": "Computer Based Test",
+    "officialWebsite": "https://cuet.nta.nic.in"
+  }
+]

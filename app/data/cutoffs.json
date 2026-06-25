@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "exam": "AP EAMCET",
+    "year": 2024,
+    "collegeSlug": "andhra-university",
+    "collegeName": "Andhra University",
+    "branch": "Computer Science and Engineering",
+    "branchCode": "CSE",
+    "category": "OC",
+    "gender": "General",
+    "openingRank": 1200,
+    "closingRank": 3200
+  },
+  {
+    "id": 2,
+    "exam": "AP EAMCET",
+    "year": 2024,
+    "collegeSlug": "jntua",
+    "collegeName": "Jawaharlal Nehru Technological University Anantapur",
+    "branch": "Computer Science and Engineering",
+    "branchCode": "CSE",
+    "category": "OC",
+    "gender": "General",
+    "openingRank": 3500,
+    "closingRank": 8500
+  },
+  {
+    "id": 3,
+    "exam": "TS EAMCET",
+    "year": 2024,
+    "collegeSlug": "jnthu",
+    "collegeName": "Jawaharlal Nehru Technological University Hyderabad",
+    "branch": "Computer Science and Engineering",
+    "branchCode": "CSE",
+    "category": "OC",
+    "gender": "General",
+    "openingRank": 900,
+    "closingRank": 2500
+  }
+]

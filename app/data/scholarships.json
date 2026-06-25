@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "National Scholarship Portal (NSP)",
+    "slug": "national-scholarship-portal",
+    "provider": "Government of India",
+    "category": "Central Government",
+    "eligibility": "Students studying in recognized institutions",
+    "amount": "Up to ₹75,000 per year",
+    "lastDate": "2026-10-31",
+    "officialWebsite": "https://scholarships.gov.in"
+  },
+  {
+    "id": 2,
+    "name": "AICTE Pragati Scholarship",
+    "slug": "aicte-pragati",
+    "provider": "AICTE",
+    "category": "Engineering",
+    "eligibility": "Girl students in AICTE approved colleges",
+    "amount": "₹50,000 per year",
+    "lastDate": "2026-09-30",
+    "officialWebsite": "https://www.aicte-india.org"
+  },
+  {
+    "id": 3,
+    "name": "AICTE Saksham Scholarship",
+    "slug": "aicte-saksham",
+    "provider": "AICTE",
+    "category": "Engineering",
+    "eligibility": "Differently-abled students",
+    "amount": "₹50,000 per year",
+    "lastDate": "2026-09-30",
+    "officialWebsite": "https://www.aicte-india.org"
+  },
+  {
+    "id": 4,
+    "name": "Post Matric Scholarship",
+    "slug": "post-matric-scholarship",
+    "provider": "Government of India",
+    "category": "SC/ST/OBC",
+    "eligibility": "Eligible SC, ST and OBC students",
+    "amount": "Varies by course and state",
+    "lastDate": "2026-11-15",
+    "officialWebsite": "https://scholarships.gov.in"
+  },
+  {
+    "id": 5,
+    "name": "INSPIRE Scholarship",
+    "slug": "inspire-scholarship",
+    "provider": "Department of Science & Technology",
+    "category": "Science",
+    "eligibility": "Top science students pursuing higher education",
+    "amount": "₹80,000 per year",
+    "lastDate": "2026-10-15",
+    "officialWebsite": "https://online-inspire.gov.in"
+  }
+]

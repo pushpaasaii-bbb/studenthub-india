@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "title": "SSC Combined Graduate Level (SSC CGL)",
+    "slug": "ssc-cgl-2026",
+    "organization": "Staff Selection Commission",
+    "location": "All India",
+    "qualification": "Bachelor's Degree",
+    "jobType": "Central Government",
+    "vacancies": 14582,
+    "salary": "₹44,900 - ₹1,42,400",
+    "lastDate": "2026-07-20",
+    "officialWebsite": "https://ssc.gov.in"
+  },
+  {
+    "id": 2,
+    "title": "IBPS Probationary Officer (PO)",
+    "slug": "ibps-po-2026",
+    "organization": "Institute of Banking Personnel Selection",
+    "location": "All India",
+    "qualification": "Bachelor's Degree",
+    "jobType": "Banking",
+    "vacancies": 5208,
+    "salary": "₹36,000 - ₹63,840",
+    "lastDate": "2026-08-05",
+    "officialWebsite": "https://www.ibps.in"
+  },
+  {
+    "id": 3,
+    "title": "RRB NTPC",
+    "slug": "rrb-ntpc-2026",
+    "organization": "Railway Recruitment Board",
+    "location": "All India",
+    "qualification": "12th / Graduate",
+    "jobType": "Railways",
+    "vacancies": 10884,
+    "salary": "₹29,200 - ₹92,300",
+    "lastDate": "2026-07-30",
+    "officialWebsite": "https://www.rrbcdg.gov.in"
+  },
+  {
+    "id": 4,
+    "title": "APPSC Group II",
+    "slug": "appsc-group-2-2026",
+    "organization": "Andhra Pradesh Public Service Commission",
+    "location": "Andhra Pradesh",
+    "qualification": "Bachelor's Degree",
+    "jobType": "State Government",
+    "vacancies": 897,
+    "salary": "₹42,000 - ₹1,15,000",
+    "lastDate": "2026-08-12",
+    "officialWebsite": "https://psc.ap.gov.in"
+  },
+  {
+    "id": 5,
+    "title": "TSPSC Group II",
+    "slug": "tspsc-group-2-2026",
+    "organization": "Telangana Public Service Commission",
+    "location": "Telangana",
+    "qualification": "Bachelor's Degree",
+    "jobType": "State Government",
+    "vacancies": 783,
+    "salary": "₹42,000 - ₹1,15,000",
+    "lastDate": "2026-08-15",
+    "officialWebsite": "https://www.tspsc.gov.in"
+  }
+]

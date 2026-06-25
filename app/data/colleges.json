@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Indian Institute of Technology Bombay",
+    "slug": "iit-bombay",
+    "shortName": "IIT Bombay",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "type": "IIT",
+    "nirfRank": 3,
+    "fees": 230000,
+    "website": "https://www.iitb.ac.in"
+  },
+  {
+    "id": 2,
+    "name": "Indian Institute of Technology Delhi",
+    "slug": "iit-delhi",
+    "shortName": "IIT Delhi",
+    "state": "Delhi",
+    "city": "New Delhi",
+    "type": "IIT",
+    "nirfRank": 2,
+    "fees": 225000,
+    "website": "https://home.iitd.ac.in"
+  },
+  {
+    "id": 3,
+    "name": "Indian Institute of Technology Madras",
+    "slug": "iit-madras",
+    "shortName": "IIT Madras",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "type": "IIT",
+    "nirfRank": 1,
+    "fees": 220000,
+    "website": "https://www.iitm.ac.in"
+  },
+  {
+    "id": 4,
+    "name": "National Institute of Technology Trichy",
+    "slug": "nit-trichy",
+    "shortName": "NIT Trichy",
+    "state": "Tamil Nadu",
+    "city": "Tiruchirappalli",
+    "type": "NIT",
+    "nirfRank": 9,
+    "fees": 175000,
+    "website": "https://www.nitt.edu"
+  },
+  {
+    "id": 5,
+    "name": "National Institute of Technology Warangal",
+    "slug": "nit-warangal",
+    "shortName": "NIT Warangal",
+    "state": "Telangana",
+    "city": "Warangal",
+    "type": "NIT",
+    "nirfRank": 21,
+    "fees": 165000,
+    "website": "https://www.nitw.ac.in"
+  },
+  {
+    "id": 6,
+    "name": "Jawaharlal Nehru Technological University Hyderabad",
+    "slug": "jnthu",
+    "shortName": "JNTUH",
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "type": "State University",
+    "nirfRank": 62,
+    "fees": 55000,
+    "website": "https://jntuh.ac.in"
+  },
+  {
+    "id": 7,
+    "name": "Jawaharlal Nehru Technological University Anantapur",
+    "slug": "jntua",
+    "shortName": "JNTUA",
+    "state": "Andhra Pradesh",
+    "city": "Anantapur",
+    "type": "State University",
+    "nirfRank": 95,
+    "fees": 50000,
+    "website": "https://jntua.ac.in"
+  },
+  {
+    "id": 8,
+    "name": "Andhra University",
+    "slug": "andhra-university",
+    "shortName": "AU",
+    "state": "Andhra Pradesh",
+    "city": "Visakhapatnam",
+    "type": "State University",
+    "nirfRank": 43,
+    "fees": 42000,
+    "website": "https://www.andhrauniversity.edu.in"
+  },
+  {
+    "id": 9,
+    "name": "Vellore Institute of Technology",
+    "slug": "vit-vellore",
+    "shortName": "VIT",
+    "state": "Tamil Nadu",
+    "city": "Vellore",
+    "type": "Private",
+    "nirfRank": 11,
+    "fees": 198000,
+    "website": "https://vit.ac.in"
+  },
+  {
+    "id": 10,
+    "name": "SRM Institute of Science and Technology",
+    "slug": "srm-ist",
+    "shortName": "SRM",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "type": "Private",
+    "nirfRank": 13,
+    "fees": 250000,
+    "website": "https://www.srmist.edu.in"
+  }
+]
