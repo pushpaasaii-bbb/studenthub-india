@@ -1,19 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../../lib/supabase";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Please enter email and password.");
       return;
     }
 
-    alert("Login form ready. Supabase login will be connected later.");
-  };
+    const { error } = await supabase.auth.signInWithPassword({
+  email,
+  password,
+});
+
+if (error) {
+  alert(error.message);
+  return;
+}
+
+alert("Login successful!");
+window.location.href = "/";  };
 
   return (
     <main className="mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-10">

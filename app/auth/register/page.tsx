@@ -1,19 +1,36 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../../lib/supabase";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!name || !email || !password) {
       alert("Please fill all fields.");
       return;
     }
 
-    alert("Register form ready. Supabase signup will be connected later.");
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+        },
+      },
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Account created! Now login.");
+    window.location.href = "/auth/login";
   };
 
   return (
