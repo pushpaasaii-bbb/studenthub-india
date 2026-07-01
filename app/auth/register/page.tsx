@@ -14,7 +14,7 @@ export default function RegisterPage() {
       return;
     }
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -27,6 +27,21 @@ export default function RegisterPage() {
     if (error) {
       alert(error.message);
       return;
+    }
+
+    const user = data.user;
+
+    if (user) {
+      const { error: profileError } = await supabase.from("profiles").insert({
+        id: user.id,
+        full_name: name,
+        email: email,
+      });
+
+      if (profileError) {
+        alert(profileError.message);
+        return;
+      }
     }
 
     alert("Account created! Now login.");
