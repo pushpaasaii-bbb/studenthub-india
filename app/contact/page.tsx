@@ -7,7 +7,7 @@ export default function ContactPage() {
 
       <div className="mt-8 space-y-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-900">
         <p className="text-slate-700 dark:text-slate-300">
-          Have questions, suggestions, or feedback? We'd love to hear from you.
+          Have questions, suggestions, or feedback? We&apos;d love to hear from you.
         </p>
 
         <div>

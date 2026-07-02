@@ -75,7 +75,7 @@ export default function CollegeDetailsPage({ params }: PageProps) {
   </h2>
 
   <p className="mt-3 text-slate-600 dark:text-slate-400">
-    {college.name} is one of India's leading engineering institutions.
+    {college.name} is one of India'&apos;s leading engineering institutions.
     Located in {college.city}, {college.state}, this {college.type}
     institution is recognized for academic excellence, research,
     placements, and industry collaborations.

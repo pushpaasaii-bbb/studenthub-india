@@ -30,7 +30,7 @@ export default function AboutPage() {
 
         <h2 className="text-2xl font-bold">Our Vision</h2>
         <p>
-          We aim to become one of India's most trusted student information and
+          We aim to become one of India&apos;s most trusted student information and
           career guidance platforms.
         </p>
       </div>
