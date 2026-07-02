@@ -6,7 +6,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "NTA",
-    "frequency": "Twice a year"
+    "frequency": "Twice a year",
+    "officialWebsite": "https://jeemain.nta.ac.in"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "IITs",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://jeeadv.ac.in"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "level": "National",
     "category": "Medical",
     "conductedBy": "NTA",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://neet.nta.ac.in"
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "level": "National",
     "category": "University Admission",
     "conductedBy": "NTA",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://cuet.nta.nic.in"
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "level": "National",
     "category": "Postgraduate Engineering",
     "conductedBy": "IITs/IISc",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://gate2026.iitk.ac.in"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "level": "National",
     "category": "MBA",
     "conductedBy": "IIMs",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://iimcat.ac.in"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "level": "National",
     "category": "MBA",
     "conductedBy": "XLRI",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://xatonline.in"
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "level": "National",
     "category": "MBA",
     "conductedBy": "AIMA",
-    "frequency": "Multiple times a year"
+    "frequency": "Multiple times a year",
+    "officialWebsite": "https://mat.aima.in"
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "level": "National",
     "category": "MBA",
     "conductedBy": "NTA",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://exams.nta.ac.in/CMAT"
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@
     "level": "National",
     "category": "Law",
     "conductedBy": "Consortium of NLUs",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://consortiumofnlus.ac.in"
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@
     "level": "National",
     "category": "Law",
     "conductedBy": "NLU Delhi",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://nationallawuniversitydelhi.in"
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "BITS Pilani",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://www.bitsadmission.com"
   },
   {
     "id": 13,
@@ -114,7 +126,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "VIT",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://viteee.vit.ac.in"
   },
   {
     "id": 14,
@@ -123,7 +136,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "SRMIST",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://applications.srmist.edu.in"
   },
   {
     "id": 15,
@@ -132,7 +146,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "KIIT",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://kiitee.kiit.ac.in"
   },
   {
     "id": 16,
@@ -141,7 +156,8 @@
     "level": "State",
     "category": "Engineering",
     "conductedBy": "WBJEEB",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://wbjeeb.nic.in"
   },
   {
     "id": 17,
@@ -150,7 +166,8 @@
     "level": "State",
     "category": "Engineering",
     "conductedBy": "JNTU Kakinada",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://cets.apsche.ap.gov.in"
   },
   {
     "id": 18,
@@ -159,7 +176,8 @@
     "level": "State",
     "category": "Engineering",
     "conductedBy": "JNTU Hyderabad",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://eapcet.tsche.ac.in"
   },
   {
     "id": 19,
@@ -168,7 +186,8 @@
     "level": "State",
     "category": "Engineering",
     "conductedBy": "KEA",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://cetonline.karnataka.gov.in"
   },
   {
     "id": 20,
@@ -177,7 +196,8 @@
     "level": "State",
     "category": "Engineering",
     "conductedBy": "Maharashtra CET Cell",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://cetcell.mahacet.org"
   },
   {
     "id": 21,
@@ -186,7 +206,8 @@
     "level": "National",
     "category": "Engineering",
     "conductedBy": "COMEDK",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://www.comedk.org"
   },
   {
     "id": 22,
@@ -195,7 +216,8 @@
     "level": "National",
     "category": "Defense",
     "conductedBy": "UPSC",
-    "frequency": "Twice a year"
+    "frequency": "Twice a year",
+    "officialWebsite": "https://upsc.gov.in"
   },
   {
     "id": 23,
@@ -204,7 +226,8 @@
     "level": "National",
     "category": "Defense",
     "conductedBy": "UPSC",
-    "frequency": "Twice a year"
+    "frequency": "Twice a year",
+    "officialWebsite": "https://upsc.gov.in"
   },
   {
     "id": 24,
@@ -213,7 +236,8 @@
     "level": "National",
     "category": "Civil Services",
     "conductedBy": "UPSC",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://upsc.gov.in"
   },
   {
     "id": 25,
@@ -222,7 +246,8 @@
     "level": "National",
     "category": "Government Jobs",
     "conductedBy": "SSC",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://ssc.gov.in"
   },
   {
     "id": 26,
@@ -231,7 +256,8 @@
     "level": "National",
     "category": "Government Jobs",
     "conductedBy": "SSC",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://ssc.gov.in"
   },
   {
     "id": 27,
@@ -240,7 +266,8 @@
     "level": "National",
     "category": "Teaching",
     "conductedBy": "NTA",
-    "frequency": "Twice a year"
+    "frequency": "Twice a year",
+    "officialWebsite": "https://ugcnet.nta.ac.in"
   },
   {
     "id": 28,
@@ -249,7 +276,8 @@
     "level": "National",
     "category": "Research",
     "conductedBy": "NTA",
-    "frequency": "Twice a year"
+    "frequency": "Twice a year",
+    "officialWebsite": "https://csirnet.nta.ac.in"
   },
   {
     "id": 29,
@@ -258,7 +286,8 @@
     "level": "National",
     "category": "Design",
     "conductedBy": "NTA",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://www.nift.ac.in"
   },
   {
     "id": 30,
@@ -267,6 +296,7 @@
     "level": "National",
     "category": "Design",
     "conductedBy": "NID",
-    "frequency": "Yearly"
+    "frequency": "Yearly",
+    "officialWebsite": "https://admissions.nid.edu"
   }
 ]

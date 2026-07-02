@@ -1,11 +1,24 @@
 import Link from "next/link";
-import exams from "../../data/exams.json";
+import examsData from "../../data/exams.json";
+
+type Exam = {
+  id: number;
+  name: string;
+  slug: string;
+  level: string;
+  category: string;
+  conductedBy: string;
+  frequency: string;
+  officialWebsite: string;
+};
 
 type PageProps = {
   params: {
     slug: string;
   };
 };
+
+const exams = examsData as Exam[];
 
 export default function ExamDetailsPage({ params }: PageProps) {
   const exam = exams.find((item) => item.slug === params.slug);
@@ -38,7 +51,7 @@ export default function ExamDetailsPage({ params }: PageProps) {
         <h1 className="text-4xl font-bold">{exam.name}</h1>
 
         <p className="mt-3 text-slate-600">
-          Conducted by: {exam.conductingBody}
+          Conducted by: {exam.conductedBy}
         </p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -55,15 +68,13 @@ export default function ExamDetailsPage({ params }: PageProps) {
           <div className="rounded-xl bg-green-50 p-4">
             <p className="text-sm text-slate-500">Application Deadline</p>
             <p className="text-lg font-bold">
-              {exam.applicationDeadline}
-            </p>
+{exam.frequency}            </p>
           </div>
 
           <div className="rounded-xl bg-purple-50 p-4">
             <p className="text-sm text-slate-500">Exam Date</p>
             <p className="text-lg font-bold">
-              {exam.examDate}
-            </p>
+{exam.category}            </p>
           </div>
         </div>
 

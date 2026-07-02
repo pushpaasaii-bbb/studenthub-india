@@ -2,7 +2,20 @@
 
 import { useState } from "react";
 import ExamCard from "../components/ExamCard";
-import exams from "../data/exams.json";
+
+type Exam = {
+  id: number;
+  name: string;
+  slug: string;
+  level: string;
+  category: string;
+  conductedBy: string;
+  frequency: string;
+  officialWebsite: string;
+};
+
+import examsData from "../data/exams.json";
+const exams = examsData as Exam[];
 
 export default function ExamsPage() {
   const [search, setSearch] = useState("");
