@@ -397,29 +397,84 @@ export async function signOut() {
   if (error) console.error('Error signing out:', error)
 }
 
-// Save college for a user
-export async function saveCollege(userId: string, collegeId: string) {
+ export async function saveCollege(
+  userId: string,
+  collegeName: string,
+  collegeSlug: string
+) {
   const { error } = await supabase
-    .from('saved_colleges')
-    .insert({ user_id: userId, college_id: collegeId })
+    .from("saved_colleges")
+    .insert({
+      user_id: userId,
+      college_name: collegeName,
+      college_slug: collegeSlug,
+    });
 
   if (error) {
-    console.error('Error saving college:', error)
-    return false
+    console.error("Error saving college:", error);
+    return false;
   }
-  return true
+
+  return true;
 }
 
-// Get saved colleges for a user
 export async function getSavedColleges(userId: string) {
   const { data, error } = await supabase
-    .from('saved_colleges')
-    .select('*, colleges(*)')
-    .eq('user_id', userId)
+    .from("saved_colleges")
+    .select("*")
+    .eq("user_id", userId);
 
   if (error) {
-    console.error('Error fetching saved colleges:', error)
-    return []
+    console.error("Error fetching saved colleges:", error);
+    return [];
   }
-  return data
+
+  return data;
+}
+export async function saveExam(
+  userId: string,
+  examName: string,
+  examSlug: string
+) {
+  const { error } = await supabase.from("saved_exams").insert({
+    user_id: userId,
+    exam_name: examName,
+    exam_slug: examSlug,
+  });
+
+  return !error;
+}
+
+export async function getSavedExams(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_exams")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) return [];
+  return data;
+}
+
+export async function saveJob(
+  userId: string,
+  jobTitle: string,
+  jobSlug: string
+) {
+  const { error } = await supabase.from("saved_jobs").insert({
+    user_id: userId,
+    job_title: jobTitle,
+    job_slug: jobSlug,
+  });
+
+  return !error;
+}
+
+export async function getSavedJobs(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_jobs")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) return [];
+  return data;
 }

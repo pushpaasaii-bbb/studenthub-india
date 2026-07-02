@@ -83,6 +83,55 @@ export default function Home() {
             );
           })}
         </section>
+        <section className="mt-16">
+  <div className="flex items-center justify-between">
+    <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+      Latest Articles
+    </h2>
+
+    <Link
+      href="/blog"
+      className="font-semibold text-blue-700 hover:underline"
+    >
+      View All →
+    </Link>
+  </div>
+
+  <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {[
+      {
+        title: "Top 10 IITs in India 2026",
+        slug: "top-10-iits-in-india",
+      },
+      {
+        title: "IIT vs NIT vs IIIT: Which is Better?",
+        slug: "iit-vs-nit-vs-iiit",
+      },
+      {
+        title: "How to Crack JEE Main 2026",
+        slug: "how-to-crack-jee-main",
+      },
+    ].map((article) => (
+      <Link
+        key={article.slug}
+        href={`/blog/${article.slug}`}
+        className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-900"
+      >
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+          {article.title}
+        </h3>
+
+        <p className="mt-3 text-slate-600 dark:text-slate-400">
+          Read detailed guidance, rankings, preparation tips and expert advice.
+        </p>
+
+        <p className="mt-4 font-semibold text-blue-700">
+          Read Article →
+        </p>
+      </Link>
+    ))}
+  </div>
+</section>
       </main>
     </div>
   );

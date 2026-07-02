@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Top 10 IITs in India 2026",
+    "slug": "top-10-iits-in-india",
+    "category": "Colleges",
+    "description": "A student-friendly guide to the best IITs in India.",
+    "content": "The Indian Institutes of Technology are among the most respected engineering institutions in India. Students choose IITs for strong academics, placements, research opportunities and national reputation. IIT Madras, IIT Delhi, IIT Bombay, IIT Kanpur and IIT Kharagpur are usually considered among the top IITs for engineering aspirants."
+  },
+  {
+    "id": 2,
+    "title": "IIT vs NIT vs IIIT: Which is Better?",
+    "slug": "iit-vs-nit-vs-iiit",
+    "category": "Colleges",
+    "description": "Understand the difference between IITs, NITs and IIITs.",
+    "content": "IITs, NITs and IIITs are all strong choices for engineering students. IITs are known for prestige and research, NITs offer strong national-level technical education, and IIITs are popular for computer science, IT and modern technology-focused courses."
+  },
+  {
+    "id": 3,
+    "title": "How to Crack JEE Main 2026",
+    "slug": "how-to-crack-jee-main",
+    "category": "Exams",
+    "description": "A simple preparation plan for JEE Main aspirants.",
+    "content": "To crack JEE Main, students should build strong basics in Physics, Chemistry and Mathematics. Practice previous papers, revise formulas regularly, take mock tests every week and analyze mistakes carefully."
+  },
+{
+  "id": 4,
+  "title": "Best Private Engineering Colleges in India 2026",
+  "slug": "best-private-engineering-colleges-india",
+  "category": "Colleges",
+  "description": "Explore the top private engineering colleges in India.",
+  "content": "Private engineering colleges such as VIT Vellore, SRM Institute, BITS Pilani, Manipal Institute of Technology and Thapar Institute offer excellent academics, placements and infrastructure."
+},
+{
+  "id": 5,
+  "title": "AP EAMCET Counselling Complete Guide",
+  "slug": "ap-eamcet-counselling-guide",
+  "category": "Exams",
+  "description": "Everything you need to know about AP EAMCET counselling.",
+  "content": "AP EAMCET counselling includes registration, certificate verification, web options entry, seat allotment and reporting to the allotted college."
+},
+{
+  "id": 6,
+  "title": "TS EAMCET vs AP EAMCET",
+  "slug": "ts-eamcet-vs-ap-eamcet",
+  "category": "Exams",
+  "description": "Understand the difference between TS EAMCET and AP EAMCET.",
+  "content": "TS EAMCET and AP EAMCET are state-level entrance exams conducted for admissions into engineering, agriculture and pharmacy courses."
+},
+{
+  "id": 7,
+  "title": "Top Government Jobs for Engineering Students",
+  "slug": "government-jobs-for-engineers",
+  "category": "Jobs",
+  "description": "Explore the best government career opportunities.",
+  "content": "Engineering graduates can apply for GATE PSU jobs, SSC JE, RRB JE, ISRO, DRDO and various state government technical positions."
+},
+{
+  "id": 8,
+  "title": "How to Get Scholarships in India",
+  "slug": "how-to-get-scholarships-india",
+  "category": "Scholarships",
+  "description": "A complete scholarship guide for Indian students.",
+  "content": "Students can apply through NSP, AICTE scholarships, state scholarships and private scholarship programs."
+},
+{
+  "id": 9,
+  "title": "JEE Main vs JEE Advanced",
+  "slug": "jee-main-vs-jee-advanced",
+  "category": "Exams",
+  "description": "Understand the differences between JEE Main and JEE Advanced.",
+  "content": "JEE Main is the qualifying exam for NITs and IIITs, while JEE Advanced is required for admission into IITs."
+},
+{
+  "id": 10,
+  "title": "Best Career Options After BTech",
+  "slug": "best-career-options-after-btech",
+  "category": "Career",
+  "description": "Explore career opportunities after engineering.",
+  "content": "After BTech, students can pursue placements, higher education, government jobs, entrepreneurship or research careers."
+}
+]

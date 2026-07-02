@@ -1,3 +1,4 @@
+import SaveCollegeButton from "../../components/SaveCollegeButton";
 import Link from "next/link";
 import colleges from "../../data/colleges.json";
 
@@ -68,7 +69,32 @@ export default function CollegeDetailsPage({ params }: PageProps) {
             </p>
           </div>
         </div>
+<div className="mt-8">
+  <h2 className="text-2xl font-bold">
+    About {college.shortName}
+  </h2>
 
+  <p className="mt-3 text-slate-600 dark:text-slate-400">
+    {college.name} is one of India's leading engineering institutions.
+    Located in {college.city}, {college.state}, this {college.type}
+    institution is recognized for academic excellence, research,
+    placements, and industry collaborations.
+  </p>
+</div>
+
+<div className="mt-8">
+  <h2 className="text-2xl font-bold">
+    Popular Courses
+  </h2>
+
+  <ul className="mt-3 list-disc pl-6">
+    <li>Computer Science Engineering</li>
+    <li>Electronics Engineering</li>
+    <li>Mechanical Engineering</li>
+    <li>Civil Engineering</li>
+    <li>Artificial Intelligence</li>
+  </ul>
+</div>
         <a
           href={college.website}
           target="_blank"
@@ -77,6 +103,10 @@ export default function CollegeDetailsPage({ params }: PageProps) {
         >
           Visit Official Website
         </a>
+        <SaveCollegeButton
+  collegeName={college.name}
+  collegeSlug={college.slug}
+/>
       </section>
     </main>
   );

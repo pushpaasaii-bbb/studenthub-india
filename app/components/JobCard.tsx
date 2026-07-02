@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SaveJobButton from "./SaveJobButton";
 
 type JobCardProps = {
   title: string;
@@ -47,6 +48,10 @@ export default function JobCard({
       >
         View Details
       </Link>
+      <SaveJobButton
+  jobTitle={title}
+  jobSlug={slug}
+/>
     </div>
   );
 }

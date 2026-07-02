@@ -1,3 +1,4 @@
+import SaveCollegeButton from "./SaveCollegeButton";
 import Link from "next/link";
 
 type CollegeCardProps = {
@@ -49,6 +50,7 @@ export default function CollegeCard({
       >
         View Details
       </Link>
+      <SaveCollegeButton collegeName={name} collegeSlug={slug} />
     </div>
   );
 }

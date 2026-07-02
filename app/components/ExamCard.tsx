@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SaveExamButton from "./SaveExamButton";
 
 type ExamCardProps = {
   name: string;
@@ -47,6 +48,10 @@ export default function ExamCard({
       >
         View Details
       </Link>
+      <SaveExamButton
+  examName={name}
+  examSlug={slug}
+/>
     </div>
   );
 }

@@ -3,72 +3,270 @@
     "id": 1,
     "name": "JEE Main",
     "slug": "jee-main",
-    "conductingBody": "National Testing Agency (NTA)",
     "level": "National",
     "category": "Engineering",
-    "applicationDeadline": "2026-01-15",
-    "examDate": "2026-01-24",
-    "mode": "Computer Based Test",
-    "officialWebsite": "https://jeemain.nta.nic.in"
+    "conductedBy": "NTA",
+    "frequency": "Twice a year"
   },
   {
     "id": 2,
     "name": "JEE Advanced",
     "slug": "jee-advanced",
-    "conductingBody": "IIT",
     "level": "National",
     "category": "Engineering",
-    "applicationDeadline": "2026-04-30",
-    "examDate": "2026-05-24",
-    "mode": "Computer Based Test",
-    "officialWebsite": "https://jeeadv.ac.in"
+    "conductedBy": "IITs",
+    "frequency": "Yearly"
   },
   {
     "id": 3,
-    "name": "AP EAMCET",
-    "slug": "ap-eamcet",
-    "conductingBody": "APSCHE",
-    "level": "State",
-    "category": "Engineering & Agriculture",
-    "applicationDeadline": "2026-03-20",
-    "examDate": "2026-05-10",
-    "mode": "Computer Based Test",
-    "officialWebsite": "https://cets.apsche.ap.gov.in"
+    "name": "NEET UG",
+    "slug": "neet-ug",
+    "level": "National",
+    "category": "Medical",
+    "conductedBy": "NTA",
+    "frequency": "Yearly"
   },
   {
     "id": 4,
-    "name": "TS EAMCET",
-    "slug": "ts-eamcet",
-    "conductingBody": "TGCHE",
-    "level": "State",
-    "category": "Engineering & Agriculture",
-    "applicationDeadline": "2026-04-04",
-    "examDate": "2026-05-05",
-    "mode": "Computer Based Test",
-    "officialWebsite": "https://eapcet.tgche.ac.in"
+    "name": "CUET UG",
+    "slug": "cuet-ug",
+    "level": "National",
+    "category": "University Admission",
+    "conductedBy": "NTA",
+    "frequency": "Yearly"
   },
   {
     "id": 5,
-    "name": "NEET UG",
-    "slug": "neet-ug",
-    "conductingBody": "National Testing Agency (NTA)",
+    "name": "GATE",
+    "slug": "gate",
     "level": "National",
-    "category": "Medical",
-    "applicationDeadline": "2026-03-10",
-    "examDate": "2026-05-03",
-    "mode": "Pen & Paper",
-    "officialWebsite": "https://neet.nta.nic.in"
+    "category": "Postgraduate Engineering",
+    "conductedBy": "IITs/IISc",
+    "frequency": "Yearly"
   },
   {
     "id": 6,
-    "name": "CUET UG",
-    "slug": "cuet-ug",
-    "conductingBody": "National Testing Agency (NTA)",
+    "name": "CAT",
+    "slug": "cat",
     "level": "National",
-    "category": "University Entrance",
-    "applicationDeadline": "2026-03-30",
-    "examDate": "2026-05-20",
-    "mode": "Computer Based Test",
-    "officialWebsite": "https://cuet.nta.nic.in"
+    "category": "MBA",
+    "conductedBy": "IIMs",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 7,
+    "name": "XAT",
+    "slug": "xat",
+    "level": "National",
+    "category": "MBA",
+    "conductedBy": "XLRI",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 8,
+    "name": "MAT",
+    "slug": "mat",
+    "level": "National",
+    "category": "MBA",
+    "conductedBy": "AIMA",
+    "frequency": "Multiple times a year"
+  },
+  {
+    "id": 9,
+    "name": "CMAT",
+    "slug": "cmat",
+    "level": "National",
+    "category": "MBA",
+    "conductedBy": "NTA",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 10,
+    "name": "CLAT",
+    "slug": "clat",
+    "level": "National",
+    "category": "Law",
+    "conductedBy": "Consortium of NLUs",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 11,
+    "name": "AILET",
+    "slug": "ailet",
+    "level": "National",
+    "category": "Law",
+    "conductedBy": "NLU Delhi",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 12,
+    "name": "BITSAT",
+    "slug": "bitsat",
+    "level": "National",
+    "category": "Engineering",
+    "conductedBy": "BITS Pilani",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 13,
+    "name": "VITEEE",
+    "slug": "viteee",
+    "level": "National",
+    "category": "Engineering",
+    "conductedBy": "VIT",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 14,
+    "name": "SRMJEEE",
+    "slug": "srmjeee",
+    "level": "National",
+    "category": "Engineering",
+    "conductedBy": "SRMIST",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 15,
+    "name": "KIITEE",
+    "slug": "kiitee",
+    "level": "National",
+    "category": "Engineering",
+    "conductedBy": "KIIT",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 16,
+    "name": "WBJEE",
+    "slug": "wbjee",
+    "level": "State",
+    "category": "Engineering",
+    "conductedBy": "WBJEEB",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 17,
+    "name": "AP EAMCET",
+    "slug": "ap-eamcet",
+    "level": "State",
+    "category": "Engineering",
+    "conductedBy": "JNTU Kakinada",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 18,
+    "name": "TS EAMCET",
+    "slug": "ts-eamcet",
+    "level": "State",
+    "category": "Engineering",
+    "conductedBy": "JNTU Hyderabad",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 19,
+    "name": "KCET",
+    "slug": "kcet",
+    "level": "State",
+    "category": "Engineering",
+    "conductedBy": "KEA",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 20,
+    "name": "MHT CET",
+    "slug": "mht-cet",
+    "level": "State",
+    "category": "Engineering",
+    "conductedBy": "Maharashtra CET Cell",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 21,
+    "name": "COMEDK UGET",
+    "slug": "comedk-uget",
+    "level": "National",
+    "category": "Engineering",
+    "conductedBy": "COMEDK",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 22,
+    "name": "NDA",
+    "slug": "nda",
+    "level": "National",
+    "category": "Defense",
+    "conductedBy": "UPSC",
+    "frequency": "Twice a year"
+  },
+  {
+    "id": 23,
+    "name": "CDS",
+    "slug": "cds",
+    "level": "National",
+    "category": "Defense",
+    "conductedBy": "UPSC",
+    "frequency": "Twice a year"
+  },
+  {
+    "id": 24,
+    "name": "UPSC CSE",
+    "slug": "upsc-cse",
+    "level": "National",
+    "category": "Civil Services",
+    "conductedBy": "UPSC",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 25,
+    "name": "SSC CGL",
+    "slug": "ssc-cgl",
+    "level": "National",
+    "category": "Government Jobs",
+    "conductedBy": "SSC",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 26,
+    "name": "SSC CHSL",
+    "slug": "ssc-chsl",
+    "level": "National",
+    "category": "Government Jobs",
+    "conductedBy": "SSC",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 27,
+    "name": "UGC NET",
+    "slug": "ugc-net",
+    "level": "National",
+    "category": "Teaching",
+    "conductedBy": "NTA",
+    "frequency": "Twice a year"
+  },
+  {
+    "id": 28,
+    "name": "CSIR NET",
+    "slug": "csir-net",
+    "level": "National",
+    "category": "Research",
+    "conductedBy": "NTA",
+    "frequency": "Twice a year"
+  },
+  {
+    "id": 29,
+    "name": "NIFT Entrance Exam",
+    "slug": "nift",
+    "level": "National",
+    "category": "Design",
+    "conductedBy": "NTA",
+    "frequency": "Yearly"
+  },
+  {
+    "id": 30,
+    "name": "NID DAT",
+    "slug": "nid-dat",
+    "level": "National",
+    "category": "Design",
+    "conductedBy": "NID",
+    "frequency": "Yearly"
   }
 ]

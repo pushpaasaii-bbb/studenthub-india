@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="mt-auto border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-10">
-        <div className="grid gap-8 md:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-5">
           <div>
             <h2 className="text-xl font-bold text-blue-700">
               StudentHub India
@@ -73,6 +73,9 @@ export default function Footer() {
                   College Predictor
                 </Link>
               </li>
+              <li>
+  <Link href="/compare">Compare Colleges</Link>
+</li>
             </ul>
           </div>
         </div>
@@ -81,6 +84,37 @@ export default function Footer() {
           © {currentYear} StudentHub India. All rights reserved.
         </div>
       </div>
+      <div>
+  <h3 className="font-semibold text-slate-900 dark:text-white">
+    Company
+  </h3>
+
+  <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+    <li>
+      <Link href="/about">About Us</Link>
+    </li>
+
+    <li>
+      <Link href="/contact">Contact Us</Link>
+    </li>
+
+    <li>
+      <Link href="/blog">Blog</Link>
+    </li>
+
+    <li>
+      <Link href="/privacy-policy">Privacy Policy</Link>
+    </li>
+
+    <li>
+      <Link href="/terms-and-conditions">Terms & Conditions</Link>
+    </li>
+
+    <li>
+      <Link href="/disclaimer">Disclaimer</Link>
+    </li>
+  </ul>
+</div>
     </footer>
   );
 }

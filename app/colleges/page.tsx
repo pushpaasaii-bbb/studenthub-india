@@ -1,38 +1,25 @@
-import CollegeCard from "../components/CollegeCard";
+"use client";
 
-const colleges = [
-  {
-    id: 1,
-    name: "Indian Institute of Technology Bombay",
-    slug: "iit-bombay",
-    city: "Mumbai",
-    state: "Maharashtra",
-    type: "IIT",
-    nirfRank: 3,
-    fees: 230000,
-  },
-  {
-    id: 2,
-    name: "Indian Institute of Technology Delhi",
-    slug: "iit-delhi",
-    city: "New Delhi",
-    state: "Delhi",
-    type: "IIT",
-    nirfRank: 2,
-    fees: 225000,
-  },
-  {
-    id: 3,
-    name: "Indian Institute of Technology Madras",
-    slug: "iit-madras",
-    city: "Chennai",
-    state: "Tamil Nadu",
-    type: "IIT",
-    nirfRank: 1,
-    fees: 220000,
-  },
-];
+import { useState } from "react";
+import CollegeCard from "../components/CollegeCard";
+import CollegeFilters from "../components/CollegeFilters";
+import colleges from "../data/colleges.json";
+
 export default function CollegesPage() {
+  const [search, setSearch] = useState("");
+  const [type, setType] = useState("");
+
+  const filteredColleges = colleges.filter((college) => {
+    const matchesSearch =
+      college.name.toLowerCase().includes(search.toLowerCase()) ||
+      college.city.toLowerCase().includes(search.toLowerCase()) ||
+      college.state.toLowerCase().includes(search.toLowerCase());
+
+    const matchesType = type === "" || college.type === type;
+
+    return matchesSearch && matchesType;
+  });
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
       <div className="mb-10">
@@ -41,13 +28,24 @@ export default function CollegesPage() {
         </h1>
 
         <p className="mt-3 text-slate-600 dark:text-slate-400">
-          Explore IITs, NITs, State Universities and Private Engineering Colleges
-          across India.
+          Explore IITs, NITs, IIITs and Private Engineering Colleges across
+          India.
         </p>
       </div>
 
+      <CollegeFilters
+        search={search}
+        setSearch={setSearch}
+        type={type}
+        setType={setType}
+      />
+
+      <p className="mb-6 text-slate-600 dark:text-slate-400">
+        Showing {filteredColleges.length} colleges
+      </p>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {colleges.map((college: (typeof colleges)[number]) => (
+        {filteredColleges.map((college) => (
           <CollegeCard
             key={college.id}
             name={college.name}
