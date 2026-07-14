@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SaveExamButton from "../../components/SaveExamButton";
 import { useParams } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 
@@ -174,7 +175,12 @@ export default function ExamDetailsPage() {
             className="mt-8 inline-block rounded-lg bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800"
           >
             Visit Official Website
+            <SaveExamButton
+  examName={exam.exam_name}
+  examSlug={exam.slug}
+/>
           </a>
+
         )}
       </section>
     </main>
