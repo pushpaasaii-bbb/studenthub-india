@@ -1,0 +1,104 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getCareer } from "../../lib/careers";
+import SaveCareerButton from "../../components/SaveCareerButton";
+
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function CareerDetailsPage({ params }: Props) {
+  const career = await getCareer(params.slug);
+
+  if (!career) {
+    notFound();
+  }
+
+  return (
+    <main className="mx-auto max-w-4xl px-4 py-10">
+      <Link href="/jobs/a-z" className="font-semibold text-blue-700">
+        ← Back to A–Z Careers
+      </Link>
+
+      <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        {career.category && (
+          <p className="text-sm font-semibold text-blue-700">
+            {career.category}
+          </p>
+        )}
+
+        <h1 className="mt-2 text-4xl font-bold text-slate-900 dark:text-white">
+          {career.title}
+        </h1>
+
+        {career.description && (
+          <p className="mt-4 leading-8 text-slate-700 dark:text-slate-300">
+            {career.description}
+          </p>
+        )}
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl bg-blue-50 p-4 dark:bg-slate-800">
+            <p className="text-sm text-slate-500">Qualification</p>
+            <p className="mt-1 font-semibold">
+              {career.qualification || "Not listed"}
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-green-50 p-4 dark:bg-slate-800">
+            <p className="text-sm text-slate-500">Average Salary</p>
+            <p className="mt-1 font-semibold">
+              {career.average_salary || "Not listed"}
+            </p>
+          </div>
+        </div>
+
+        {career.skills && career.skills.length > 0 && (
+          <>
+            <h2 className="mt-8 text-2xl font-bold">Required Skills</h2>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {career.skills.map((skill: string) => (
+                <span
+                  key={skill}
+                  className="rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-700"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+
+        {career.scope && (
+          <>
+            <h2 className="mt-8 text-2xl font-bold">Future Scope</h2>
+
+            <p className="mt-3 leading-8 text-slate-700 dark:text-slate-300">
+              {career.scope}
+            </p>
+          </>
+        )}
+
+        {career.roadmap && (
+          <>
+            <h2 className="mt-8 text-2xl font-bold">Roadmap</h2>
+
+            <p className="mt-3 leading-8 text-slate-700 dark:text-slate-300">
+              {career.roadmap}
+            </p>
+          </>
+        )}
+
+        <div className="mt-10">
+          <SaveCareerButton
+            careerTitle={career.title}
+            careerSlug={career.slug}
+          />
+        </div>
+      </section>
+    </main>
+  );
+}

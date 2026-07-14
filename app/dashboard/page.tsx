@@ -7,6 +7,9 @@ import {
   getSavedColleges,
   getSavedExams,
   getSavedJobs,
+  getSavedScholarships,
+  getSavedCareers,
+  getSavedSchools,
 } from "../lib/supabase";
 
 type SavedCollege = {
@@ -27,11 +30,34 @@ type SavedJob = {
   job_slug: string;
 };
 
+type SavedScholarship = {
+  id: number;
+  scholarship_name: string;
+  scholarship_slug: string;
+};
+
+type SavedCareer = {
+  id: number;
+  career_title: string;
+  career_slug: string;
+};
+
+type SavedSchool = {
+  id: number;
+  school_name: string;
+  school_slug: string;
+};
+
 export default function DashboardPage() {
   const [email, setEmail] = useState("");
   const [savedColleges, setSavedColleges] = useState<SavedCollege[]>([]);
   const [savedExams, setSavedExams] = useState<SavedExam[]>([]);
   const [savedJobs, setSavedJobs] = useState<SavedJob[]>([]);
+  const [savedScholarships, setSavedScholarships] = useState<
+    SavedScholarship[]
+  >([]);
+  const [savedCareers, setSavedCareers] = useState<SavedCareer[]>([]);
+  const [savedSchools, setSavedSchools] = useState<SavedSchool[]>([]);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -46,9 +72,28 @@ export default function DashboardPage() {
 
       setEmail(user.email || "");
 
-      setSavedColleges(await getSavedColleges(user.id));
-      setSavedExams(await getSavedExams(user.id));
-      setSavedJobs(await getSavedJobs(user.id));
+      const [
+        colleges,
+        exams,
+        jobs,
+        scholarships,
+        careers,
+        schools,
+      ] = await Promise.all([
+        getSavedColleges(user.id),
+        getSavedExams(user.id),
+        getSavedJobs(user.id),
+        getSavedScholarships(user.id),
+        getSavedCareers(user.id),
+        getSavedSchools(user.id),
+      ]);
+
+      setSavedColleges(colleges);
+      setSavedExams(exams);
+      setSavedJobs(jobs);
+      setSavedScholarships(scholarships);
+      setSavedCareers(careers);
+      setSavedSchools(schools);
     };
 
     checkUser();
@@ -66,12 +111,14 @@ export default function DashboardPage() {
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
             Student Dashboard
           </h1>
+
           <p className="mt-3 text-slate-600 dark:text-slate-400">
             Welcome back! Logged in as {email}
           </p>
         </div>
 
         <button
+          type="button"
           onClick={handleLogout}
           className="rounded-lg bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700"
         >
@@ -80,34 +127,50 @@ export default function DashboardPage() {
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-lg font-semibold">Saved Colleges</h2>
-          <p className="mt-4 text-4xl font-bold text-blue-700">
-            {savedColleges.length}
-          </p>
-        </div>
+        <DashboardCard
+          title="Saved Colleges"
+          count={savedColleges.length}
+          color="text-blue-700"
+        />
 
-        <div className="rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-lg font-semibold">Saved Exams</h2>
-          <p className="mt-4 text-4xl font-bold text-green-700">
-            {savedExams.length}
-          </p>
-        </div>
+        <DashboardCard
+          title="Saved Exams"
+          count={savedExams.length}
+          color="text-green-700"
+        />
 
-        <div className="rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-lg font-semibold">Saved Jobs</h2>
-          <p className="mt-4 text-4xl font-bold text-orange-600">
-            {savedJobs.length}
-          </p>
-        </div>
+        <DashboardCard
+          title="Saved Jobs"
+          count={savedJobs.length}
+          color="text-orange-600"
+        />
 
-        <div className="rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-lg font-semibold">Study Tools Used</h2>
-          <p className="mt-4 text-4xl font-bold text-purple-700">0</p>
-        </div>
+        <DashboardCard
+          title="Saved Scholarships"
+          count={savedScholarships.length}
+          color="text-pink-600"
+        />
+
+        <DashboardCard
+          title="Saved Careers"
+          count={savedCareers.length}
+          color="text-indigo-700"
+        />
+
+        <DashboardCard
+          title="Saved Schools"
+          count={savedSchools.length}
+          color="text-cyan-700"
+        />
+
+        <DashboardCard
+          title="Study Tools Used"
+          count={0}
+          color="text-purple-700"
+        />
       </div>
 
-      <section className="mt-10 grid gap-6 lg:grid-cols-3">
+      <section className="mt-10 grid gap-6 lg:grid-cols-2">
         <SavedList title="Saved Colleges" empty="No saved colleges yet.">
           {savedColleges.map((college) => (
             <Link
@@ -136,15 +199,72 @@ export default function DashboardPage() {
           {savedJobs.map((job) => (
             <Link
               key={job.id}
-              href={`/jobs/${job.job_slug}`}
+              href={`/jobs-v2/${job.job_slug}`}
               className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
             >
               💼 {job.job_title}
             </Link>
           ))}
         </SavedList>
+
+        <SavedList
+          title="Saved Scholarships"
+          empty="No saved scholarships yet."
+        >
+          {savedScholarships.map((scholarship) => (
+            <Link
+              key={scholarship.id}
+              href={`/scholarships/${scholarship.scholarship_slug}`}
+              className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
+              🔖 {scholarship.scholarship_name}
+            </Link>
+          ))}
+        </SavedList>
+
+        <SavedList title="Saved Careers" empty="No saved careers yet.">
+          {savedCareers.map((career) => (
+            <Link
+              key={career.id}
+              href={`/careers/${career.career_slug}`}
+              className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
+              🧭 {career.career_title}
+            </Link>
+          ))}
+        </SavedList>
+
+        <SavedList title="Saved Schools" empty="No saved schools yet.">
+          {savedSchools.map((school) => (
+            <Link
+              key={school.id}
+              href={`/schools/${school.school_slug}`}
+              className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
+              🏫 {school.school_name}
+            </Link>
+          ))}
+        </SavedList>
       </section>
     </main>
+  );
+}
+
+function DashboardCard({
+  title,
+  count,
+  color,
+}: {
+  title: string;
+  count: number;
+  color: string;
+}) {
+  return (
+    <div className="rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <h2 className="text-lg font-semibold">{title}</h2>
+
+      <p className={`mt-4 text-4xl font-bold ${color}`}>{count}</p>
+    </div>
   );
 }
 

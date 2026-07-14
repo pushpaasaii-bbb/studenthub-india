@@ -477,4 +477,97 @@ export async function getSavedJobs(userId: string) {
 
   if (error) return [];
   return data;
+}export async function saveScholarship(
+  userId: string,
+  scholarshipName: string,
+  scholarshipSlug: string
+) {
+  const { error } = await supabase.from("saved_scholarships").insert({
+    user_id: userId,
+    scholarship_name: scholarshipName,
+    scholarship_slug: scholarshipSlug,
+  });
+
+  if (error) {
+    console.error("Error saving scholarship:", error);
+    return false;
+  }
+
+  return true;
+}
+
+export async function getSavedScholarships(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_scholarships")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Error fetching saved scholarships:", error);
+    return [];
+  }
+
+  return data;
+}export async function saveCareer(
+  userId: string,
+  careerTitle: string,
+  careerSlug: string
+) {
+  const { error } = await supabase.from("saved_careers").insert({
+    user_id: userId,
+    career_title: careerTitle,
+    career_slug: careerSlug,
+  });
+
+  if (error) {
+    console.error("Error saving career:", error);
+    return false;
+  }
+
+  return true;
+}
+
+export async function getSavedCareers(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_careers")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Error fetching saved careers:", error);
+    return [];
+  }
+
+  return data;
+}export async function saveSchool(
+  userId: string,
+  schoolName: string,
+  schoolSlug: string
+) {
+  const { error } = await supabase.from("saved_schools").insert({
+    user_id: userId,
+    school_name: schoolName,
+    school_slug: schoolSlug,
+  });
+
+  if (error) {
+    console.error("Error saving school:", error);
+    return false;
+  }
+
+  return true;
+}
+
+export async function getSavedSchools(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_schools")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Error fetching saved schools:", error);
+    return [];
+  }
+
+  return data;
 }

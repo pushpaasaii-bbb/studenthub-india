@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "Accountant",
+    "slug": "accountant",
+    "category": "Finance",
+    "qualification": "B.Com / M.Com / CA Foundation",
+    "averageSalary": "₹2.5 LPA - ₹10 LPA",
+    "skills": ["Accounting", "Taxation", "Excel", "Tally"],
+    "description": "Accountants manage financial records, prepare reports, handle tax documents and help businesses track income and expenses."
+  },
+  {
+    "id": 2,
+    "title": "AI Engineer",
+    "slug": "ai-engineer",
+    "category": "Artificial Intelligence",
+    "qualification": "Python, Machine Learning, Deep Learning",
+    "averageSalary": "₹6 LPA - ₹40 LPA",
+    "skills": ["Python", "Machine Learning", "LLMs", "Deep Learning"],
+    "description": "AI engineers build intelligent systems, automation tools and machine learning models."
+  },
+  {
+    "id": 3,
+    "title": "Architect",
+    "slug": "architect",
+    "category": "Design and Construction",
+    "qualification": "B.Arch",
+    "averageSalary": "₹3 LPA - ₹20 LPA",
+    "skills": ["Design", "AutoCAD", "Planning", "Creativity"],
+    "description": "Architects design buildings, layouts and spaces while considering safety, beauty, structure and functionality."
+  },
+  {
+    "id": 4,
+    "title": "Banker",
+    "slug": "banker",
+    "category": "Banking",
+    "qualification": "Any Degree / Banking Exams",
+    "averageSalary": "₹3 LPA - ₹15 LPA",
+    "skills": ["Finance", "Customer Service", "Banking Operations"],
+    "description": "Bankers help customers with accounts, loans, deposits, financial services and banking operations."
+  },
+  {
+    "id": 5,
+    "title": "Business Analyst",
+    "slug": "business-analyst",
+    "category": "Business",
+    "qualification": "BBA / MBA / Data Skills",
+    "averageSalary": "₹4 LPA - ₹20 LPA",
+    "skills": ["Excel", "SQL", "Communication", "Analysis"],
+    "description": "Business analysts study business problems, gather requirements and suggest better processes or technology solutions."
+  },
+  {
+    "id": 6,
+    "title": "Civil Engineer",
+    "slug": "civil-engineer",
+    "category": "Engineering",
+    "qualification": "B.Tech Civil Engineering",
+    "averageSalary": "₹3 LPA - ₹15 LPA",
+    "skills": ["Construction", "AutoCAD", "Site Management", "Planning"],
+    "description": "Civil engineers design and supervise construction projects such as roads, bridges, buildings and water systems."
+  },
+  {
+    "id": 7,
+    "title": "Content Writer",
+    "slug": "content-writer",
+    "category": "Writing",
+    "qualification": "Any Degree + Writing Skills",
+    "averageSalary": "₹2.5 LPA - ₹12 LPA",
+    "skills": ["Writing", "SEO", "Research", "Editing"],
+    "description": "Content writers create articles, blogs, website content, social media posts and marketing copy."
+  },
+  {
+    "id": 8,
+    "title": "Cybersecurity Analyst",
+    "slug": "cybersecurity-analyst",
+    "category": "Cybersecurity",
+    "qualification": "Networking, Security, Ethical Hacking",
+    "averageSalary": "₹4 LPA - ₹25 LPA",
+    "skills": ["Networking", "Security", "Linux", "Risk Analysis"],
+    "description": "Cybersecurity analysts protect systems, networks and data from cyber attacks and security threats."
+  },
+  {
+    "id": 9,
+    "title": "Data Analyst",
+    "slug": "data-analyst",
+    "category": "Data",
+    "qualification": "Any Degree + Excel, SQL, Power BI",
+    "averageSalary": "₹3 LPA - ₹15 LPA",
+    "skills": ["Excel", "SQL", "Power BI", "Data Visualization"],
+    "description": "Data analysts collect, clean and analyze data to help companies make better decisions."
+  },
+  {
+    "id": 10,
+    "title": "Data Scientist",
+    "slug": "data-scientist",
+    "category": "Data",
+    "qualification": "Python, Statistics, Machine Learning",
+    "averageSalary": "₹6 LPA - ₹35 LPA",
+    "skills": ["Python", "Statistics", "Machine Learning", "SQL"],
+    "description": "Data scientists use statistics, machine learning and programming to solve complex data problems."
+  },
+  {
+    "id": 11,
+    "title": "Doctor",
+    "slug": "doctor",
+    "category": "Healthcare",
+    "qualification": "MBBS / MD",
+    "averageSalary": "₹6 LPA - ₹50 LPA",
+    "skills": ["Medical Knowledge", "Diagnosis", "Patient Care"],
+    "description": "Doctors diagnose illnesses, treat patients and guide people toward better health."
+  },
+  {
+    "id": 12,
+    "title": "DevOps Engineer",
+    "slug": "devops-engineer",
+    "category": "Technology",
+    "qualification": "Linux, Cloud, Docker, CI/CD",
+    "averageSalary": "₹5 LPA - ₹30 LPA",
+    "skills": ["Linux", "Docker", "Kubernetes", "Cloud"],
+    "description": "DevOps engineers automate deployment, manage cloud systems and improve software delivery pipelines."
+  }
+]

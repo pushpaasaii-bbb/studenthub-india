@@ -10,10 +10,70 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+).replace(/\/$/, "");
+
 export const metadata: Metadata = {
-  title: "StudentHub India",
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: "StudentHub India | Colleges, Exams, Jobs & Scholarships",
+    template: "%s | StudentHub India",
+  },
+
   description:
-    "Your complete student guide for colleges, exams, jobs, scholarships and tools in India.",
+    "Find colleges, entrance exams, jobs, scholarships, career guides and useful student tools across India.",
+
+  keywords: [
+    "StudentHub India",
+    "colleges in India",
+    "Indian colleges",
+    "entrance exams India",
+    "jobs for students",
+    "scholarships India",
+    "career guidance",
+    "student tools",
+  ],
+
+  authors: [{ name: "StudentHub India" }],
+  creator: "StudentHub India",
+  publisher: "StudentHub India",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteUrl,
+    siteName: "StudentHub India",
+    title: "StudentHub India | Colleges, Exams, Jobs & Scholarships",
+    description:
+      "Your complete student guide for colleges, exams, jobs, scholarships and tools in India.",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "StudentHub India | Colleges, Exams, Jobs & Scholarships",
+    description:
+      "Your complete student guide for colleges, exams, jobs, scholarships and tools in India.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  category: "education",
 };
 
 export default function RootLayout({
