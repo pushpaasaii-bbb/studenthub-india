@@ -125,6 +125,13 @@ export default function DashboardPage() {
 
         <div className="flex flex-wrap gap-3">
           <Link
+            href="/dashboard/alerts"
+            className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            Notifications
+          </Link>
+
+          <Link
             href="/dashboard/notifications"
             className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
           >
