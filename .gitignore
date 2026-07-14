@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Raw source downloads and generated import files
+College-Affiliated College.xlsx
+data/imports/
