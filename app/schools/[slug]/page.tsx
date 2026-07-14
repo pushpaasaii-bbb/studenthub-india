@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { supabase } from "../../lib/supabase";
 import SaveSchoolButton from "../../components/SaveSchoolButton";
+import { supabase } from "../../lib/supabase";
 
 type School = {
   id: number;
@@ -19,12 +19,16 @@ type School = {
 
 export default function SchoolDetailsPage() {
   const params = useParams<{ slug: string }>();
+
   const [school, setSchool] = useState<School | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const loadSchool = async () => {
+      setLoading(true);
+      setNotFound(false);
+
       const { data, error } = await supabase
         .from("schools")
         .select("id, name, slug, state, city, type, board, website")
@@ -104,7 +108,8 @@ export default function SchoolDetailsPage() {
         </h1>
 
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-          📍 {[school.city, school.state].filter(Boolean).join(", ") ||
+          📍{" "}
+          {[school.city, school.state].filter(Boolean).join(", ") ||
             "Location not listed"}
         </p>
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
-  supabase,
+  getSavedCareers,
   getSavedColleges,
   getSavedExams,
   getSavedJobs,
   getSavedScholarships,
-  getSavedCareers,
   getSavedSchools,
+  supabase,
 } from "../lib/supabase";
 
 type SavedCollege = {
@@ -36,16 +36,16 @@ type SavedScholarship = {
   scholarship_slug: string;
 };
 
-type SavedCareer = {
-  id: number;
-  career_title: string;
-  career_slug: string;
-};
-
 type SavedSchool = {
   id: number;
   school_name: string;
   school_slug: string;
+};
+
+type SavedCareer = {
+  id: number;
+  career_title: string;
+  career_slug: string;
 };
 
 export default function DashboardPage() {
@@ -56,8 +56,9 @@ export default function DashboardPage() {
   const [savedScholarships, setSavedScholarships] = useState<
     SavedScholarship[]
   >([]);
-  const [savedCareers, setSavedCareers] = useState<SavedCareer[]>([]);
   const [savedSchools, setSavedSchools] = useState<SavedSchool[]>([]);
+  const [savedCareers, setSavedCareers] = useState<SavedCareer[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -72,28 +73,23 @@ export default function DashboardPage() {
 
       setEmail(user.email || "");
 
-      const [
-        colleges,
-        exams,
-        jobs,
-        scholarships,
-        careers,
-        schools,
-      ] = await Promise.all([
-        getSavedColleges(user.id),
-        getSavedExams(user.id),
-        getSavedJobs(user.id),
-        getSavedScholarships(user.id),
-        getSavedCareers(user.id),
-        getSavedSchools(user.id),
-      ]);
+      const [colleges, exams, jobs, scholarships, schools, careers] =
+        await Promise.all([
+          getSavedColleges(user.id),
+          getSavedExams(user.id),
+          getSavedJobs(user.id),
+          getSavedScholarships(user.id),
+          getSavedSchools(user.id),
+          getSavedCareers(user.id),
+        ]);
 
       setSavedColleges(colleges);
       setSavedExams(exams);
       setSavedJobs(jobs);
       setSavedScholarships(scholarships);
-      setSavedCareers(careers);
       setSavedSchools(schools);
+      setSavedCareers(careers);
+      setLoading(false);
     };
 
     checkUser();
@@ -104,9 +100,19 @@ export default function DashboardPage() {
     window.location.href = "/auth/login";
   };
 
+  if (loading) {
+    return (
+      <main className="mx-auto max-w-7xl px-4 py-10">
+        <p className="text-slate-600 dark:text-slate-400">
+          Loading your dashboard...
+        </p>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
             Student Dashboard
@@ -126,7 +132,7 @@ export default function DashboardPage() {
         </button>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <DashboardCard
           title="Saved Colleges"
           count={savedColleges.length}
@@ -148,29 +154,23 @@ export default function DashboardPage() {
         <DashboardCard
           title="Saved Scholarships"
           count={savedScholarships.length}
-          color="text-pink-600"
-        />
-
-        <DashboardCard
-          title="Saved Careers"
-          count={savedCareers.length}
-          color="text-indigo-700"
+          color="text-purple-700"
         />
 
         <DashboardCard
           title="Saved Schools"
           count={savedSchools.length}
-          color="text-cyan-700"
+          color="text-pink-700"
         />
 
         <DashboardCard
-          title="Study Tools Used"
-          count={0}
-          color="text-purple-700"
+          title="Saved Careers"
+          count={savedCareers.length}
+          color="text-cyan-700"
         />
       </div>
 
-      <section className="mt-10 grid gap-6 lg:grid-cols-2">
+      <section className="mt-10 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
         <SavedList title="Saved Colleges" empty="No saved colleges yet.">
           {savedColleges.map((college) => (
             <Link
@@ -217,19 +217,7 @@ export default function DashboardPage() {
               href={`/scholarships/${scholarship.scholarship_slug}`}
               className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
             >
-              🔖 {scholarship.scholarship_name}
-            </Link>
-          ))}
-        </SavedList>
-
-        <SavedList title="Saved Careers" empty="No saved careers yet.">
-          {savedCareers.map((career) => (
-            <Link
-              key={career.id}
-              href={`/careers/${career.career_slug}`}
-              className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
-            >
-              🧭 {career.career_title}
+              🎁 {scholarship.scholarship_name}
             </Link>
           ))}
         </SavedList>
@@ -242,6 +230,18 @@ export default function DashboardPage() {
               className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
             >
               🏫 {school.school_name}
+            </Link>
+          ))}
+        </SavedList>
+
+        <SavedList title="Saved Careers" empty="No saved careers yet.">
+          {savedCareers.map((career) => (
+            <Link
+              key={career.id}
+              href={`/careers/${career.career_slug}`}
+              className="block rounded-lg border p-4 font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
+              🧭 {career.career_title}
             </Link>
           ))}
         </SavedList>
@@ -277,11 +277,15 @@ function SavedList({
   empty: string;
   children: React.ReactNode;
 }) {
-  const hasItems = Array.isArray(children) ? children.length > 0 : !!children;
+  const hasItems = Array.isArray(children)
+    ? children.length > 0
+    : Boolean(children);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-      <h2 className="text-2xl font-bold">{title}</h2>
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        {title}
+      </h2>
 
       <div className="mt-4 space-y-3">
         {hasItems ? (

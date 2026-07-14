@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { supabase } from "../../lib/supabase";
 import SaveScholarshipButton from "../../components/SaveScholarshipButton";
+import { supabase } from "../../lib/supabase";
 
 type Scholarship = {
   id: number;
@@ -23,7 +23,9 @@ type Scholarship = {
 
 export default function ScholarshipDetailsPage() {
   const params = useParams<{ slug: string }>();
-  const [scholarship, setScholarship] = useState<Scholarship | null>(null);
+
+  const [scholarship, setScholarship] =
+    useState<Scholarship | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -119,6 +121,7 @@ export default function ScholarshipDetailsPage() {
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Scholarship Amount
             </p>
+
             <p className="mt-1 text-xl font-bold text-blue-700">
               {scholarship.amount || "Not specified"}
             </p>
@@ -128,6 +131,7 @@ export default function ScholarshipDetailsPage() {
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Application Deadline
             </p>
+
             <p className="mt-1 text-xl font-bold text-red-600">
               {scholarship.application_end || "Not specified"}
             </p>
@@ -163,6 +167,7 @@ export default function ScholarshipDetailsPage() {
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Application Start
             </p>
+
             <p className="mt-1 font-semibold text-slate-900 dark:text-white">
               {scholarship.application_start || "Not specified"}
             </p>
@@ -172,6 +177,7 @@ export default function ScholarshipDetailsPage() {
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Application End
             </p>
+
             <p className="mt-1 font-semibold text-slate-900 dark:text-white">
               {scholarship.application_end || "Not specified"}
             </p>

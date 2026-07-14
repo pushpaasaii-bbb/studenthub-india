@@ -1,403 +1,412 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-// ============================================
-// SUPABASE CLIENT SETUP
-// These values come from your .env.local file
-// ============================================
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-// Create and export the Supabase client
-// This single instance is used across the whole app
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
-// ============================================
-// TYPE DEFINITIONS
-// These match our database table columns exactly
-// ============================================
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export type College = {
-  id: string
-  name: string
-  slug: string
-  state: string
-  district: string
-  type: 'government' | 'private' | 'deemed' | 'central'
-  nirf_rank: number | null
-  fees_min: number
-  fees_max: number
-  website: string | null
-  phone: string | null
-  address: string
-  about: string
-  established: number
-  naac_grade: string | null
-  rating: number
-  total_reviews: number
-  created_at: string
-}
+  id: string;
+  name: string;
+  slug: string;
+  state: string;
+  district: string;
+  type: "government" | "private" | "deemed" | "central";
+  nirf_rank: number | null;
+  fees_min: number;
+  fees_max: number;
+  website: string | null;
+  phone: string | null;
+  address: string;
+  about: string;
+  established: number;
+  naac_grade: string | null;
+  rating: number;
+  total_reviews: number;
+  created_at: string;
+};
 
 export type CollegeBranch = {
-  id: string
-  college_id: string
-  branch_name: string
-  branch_code: string
-  total_seats: number
-  tuition_fee: number
-}
+  id: string;
+  college_id: string;
+  branch_name: string;
+  branch_code: string;
+  total_seats: number;
+  tuition_fee: number;
+};
 
 export type Cutoff = {
-  id: string
-  college_id: string
-  branch_id: string
-  year: number
-  exam_type: 'AP_EAMCET' | 'TS_EAMCET' | 'JEE_MAIN' | 'JEE_ADVANCED'
-  category: 'OC' | 'BC_A' | 'BC_B' | 'BC_C' | 'BC_D' | 'BC_E' | 'SC' | 'ST' | 'EWS' | 'OBC'
-  opening_rank: number
-  closing_rank: number
-}
+  id: string;
+  college_id: string;
+  branch_id: string;
+  year: number;
+  exam_type: "AP_EAMCET" | "TS_EAMCET" | "JEE_MAIN" | "JEE_ADVANCED";
+  category:
+    | "OC"
+    | "BC_A"
+    | "BC_B"
+    | "BC_C"
+    | "BC_D"
+    | "BC_E"
+    | "SC"
+    | "ST"
+    | "EWS"
+    | "OBC";
+  opening_rank: number;
+  closing_rank: number;
+};
 
 export type Exam = {
-  id: string
-  name: string
-  slug: string
-  type: 'entrance' | 'government_job' | 'scholarship'
-  conducting_body: string
-  state: string | null
-  notification_date: string | null
-  exam_date: string | null
-  last_date: string | null
-  about: string
-  eligibility: string
-  syllabus_url: string | null
-  official_url: string | null
-}
+  id: string;
+  name: string;
+  slug: string;
+  type: "entrance" | "government_job" | "scholarship";
+  conducting_body: string;
+  state: string | null;
+  notification_date: string | null;
+  exam_date: string | null;
+  last_date: string | null;
+  about: string;
+  eligibility: string;
+  syllabus_url: string | null;
+  official_url: string | null;
+};
 
 export type Job = {
-  id: string
-  title: string
-  slug: string
-  department: string
-  state: string
-  qualification: string
-  vacancies: number
-  last_date: string
-  apply_url: string
-  posted_on: string
-  salary: string
-  about: string
-}
+  id: string;
+  title: string;
+  slug: string;
+  department: string;
+  state: string;
+  qualification: string;
+  vacancies: number;
+  last_date: string;
+  apply_url: string;
+  posted_on: string;
+  salary: string;
+  about: string;
+};
 
 export type StudyMaterial = {
-  id: string
-  title: string
-  slug: string
-  branch: string
-  semester: number
-  subject: string
-  type: 'notes' | 'question_paper' | 'syllabus' | 'formula_sheet'
-  file_url: string
-  downloads: number
-  created_at: string
-}
+  id: string;
+  title: string;
+  slug: string;
+  branch: string;
+  semester: number;
+  subject: string;
+  type: "notes" | "question_paper" | "syllabus" | "formula_sheet";
+  file_url: string;
+  downloads: number;
+  created_at: string;
+};
 
 export type Scholarship = {
-  id: string
-  name: string
-  slug: string
-  provider: string
-  category: string
-  income_limit: number | null
-  amount: number
-  last_date: string
-  apply_url: string
-  about: string
-  eligibility: string
-}
+  id: string;
+  name: string;
+  slug: string;
+  provider: string;
+  category: string;
+  income_limit: number | null;
+  amount: number;
+  last_date: string;
+  apply_url: string;
+  about: string;
+  eligibility: string;
+};
 
 export type Review = {
-  id: string
-  college_id: string
-  user_id: string
-  rating: number
-  review_text: string
-  created_at: string
-}
+  id: string;
+  college_id: string;
+  user_id: string;
+  rating: number;
+  review_text: string;
+  created_at: string;
+};
 
-// ============================================
-// DATABASE QUERY FUNCTIONS
-// Ready-to-use functions for every page
-// ============================================
-
-// --- COLLEGE FUNCTIONS ---
-
-// Get all colleges with optional filters
 export async function getColleges(filters?: {
-  state?: string
-  type?: string
-  branch?: string
-  search?: string
-  limit?: number
+  state?: string;
+  type?: string;
+  branch?: string;
+  search?: string;
+  limit?: number;
 }) {
   let query = supabase
-    .from('colleges')
-    .select('*')
-    .order('nirf_rank', { ascending: true, nullsFirst: false })
+    .from("colleges")
+    .select("*")
+    .order("nirf_rank", { ascending: true, nullsFirst: false });
 
-  if (filters?.state)  query = query.eq('state', filters.state)
-  if (filters?.type)   query = query.eq('type', filters.type)
-  if (filters?.search) query = query.ilike('name', `%${filters.search}%`)
-  if (filters?.limit)  query = query.limit(filters.limit)
-
-  const { data, error } = await query
-  if (error) {
-    console.error('Error fetching colleges:', error)
-    return []
+  if (filters?.state) query = query.eq("state", filters.state);
+  if (filters?.type) query = query.eq("type", filters.type);
+  if (filters?.search) {
+    query = query.ilike("name", `%${filters.search}%`);
   }
-  return data as College[]
+  if (filters?.limit) query = query.limit(filters.limit);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching colleges:", error);
+    return [];
+  }
+
+  return data as College[];
 }
 
-// Get single college by slug
 export async function getCollegeBySlug(slug: string) {
   const { data, error } = await supabase
-    .from('colleges')
-    .select('*')
-    .eq('slug', slug)
-    .single()
+    .from("colleges")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
   if (error) {
-    console.error('Error fetching college:', error)
-    return null
+    console.error("Error fetching college:", error);
+    return null;
   }
-  return data as College
+
+  return data as College;
 }
 
-// Get all college slugs (for static page generation)
 export async function getAllCollegeSlugs() {
   const { data, error } = await supabase
-    .from('colleges')
-    .select('slug')
+    .from("colleges")
+    .select("slug");
 
-  if (error) return []
-  return data.map((c) => c.slug)
+  if (error) {
+    return [];
+  }
+
+  return data.map((college) => college.slug);
 }
 
-// Get cutoffs for a college
 export async function getCollegeCutoffs(collegeId: string) {
   const { data, error } = await supabase
-    .from('cutoffs')
-    .select('*, college_branches(branch_name, branch_code)')
-    .eq('college_id', collegeId)
-    .order('year', { ascending: false })
+    .from("cutoffs")
+    .select("*, college_branches(branch_name, branch_code)")
+    .eq("college_id", collegeId)
+    .order("year", { ascending: false });
 
   if (error) {
-    console.error('Error fetching cutoffs:', error)
-    return []
+    console.error("Error fetching cutoffs:", error);
+    return [];
   }
-  return data
+
+  return data;
 }
 
-// Get branches for a college
 export async function getCollegeBranches(collegeId: string) {
   const { data, error } = await supabase
-    .from('college_branches')
-    .select('*')
-    .eq('college_id', collegeId)
+    .from("college_branches")
+    .select("*")
+    .eq("college_id", collegeId);
 
   if (error) {
-    console.error('Error fetching branches:', error)
-    return []
+    console.error("Error fetching branches:", error);
+    return [];
   }
-  return data as CollegeBranch[]
+
+  return data as CollegeBranch[];
 }
 
-// --- EXAM FUNCTIONS ---
-
-// Get all exams
 export async function getExams(filters?: {
-  type?: string
-  state?: string
-  search?: string
-  limit?: number
+  type?: string;
+  state?: string;
+  search?: string;
+  limit?: number;
 }) {
   let query = supabase
-    .from('exams')
-    .select('*')
-    .order('exam_date', { ascending: true })
+    .from("exams")
+    .select("*")
+    .order("exam_date", { ascending: true });
 
-  if (filters?.type)   query = query.eq('type', filters.type)
-  if (filters?.state)  query = query.eq('state', filters.state)
-  if (filters?.search) query = query.ilike('name', `%${filters.search}%`)
-  if (filters?.limit)  query = query.limit(filters.limit)
-
-  const { data, error } = await query
-  if (error) {
-    console.error('Error fetching exams:', error)
-    return []
+  if (filters?.type) query = query.eq("type", filters.type);
+  if (filters?.state) query = query.eq("state", filters.state);
+  if (filters?.search) {
+    query = query.ilike("name", `%${filters.search}%`);
   }
-  return data as Exam[]
+  if (filters?.limit) query = query.limit(filters.limit);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching exams:", error);
+    return [];
+  }
+
+  return data as Exam[];
 }
 
-// Get single exam by slug
 export async function getExamBySlug(slug: string) {
   const { data, error } = await supabase
-    .from('exams')
-    .select('*')
-    .eq('slug', slug)
-    .single()
+    .from("exams")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
   if (error) {
-    console.error('Error fetching exam:', error)
-    return null
+    console.error("Error fetching exam:", error);
+    return null;
   }
-  return data as Exam
+
+  return data as Exam;
 }
 
-// --- JOB FUNCTIONS ---
-
-// Get all jobs
 export async function getJobs(filters?: {
-  state?: string
-  department?: string
-  search?: string
-  limit?: number
+  state?: string;
+  department?: string;
+  search?: string;
+  limit?: number;
 }) {
   let query = supabase
-    .from('jobs')
-    .select('*')
-    .order('posted_on', { ascending: false })
+    .from("jobs")
+    .select("*")
+    .order("posted_on", { ascending: false });
 
-  if (filters?.state)      query = query.eq('state', filters.state)
-  if (filters?.department) query = query.eq('department', filters.department)
-  if (filters?.search)     query = query.ilike('title', `%${filters.search}%`)
-  if (filters?.limit)      query = query.limit(filters.limit)
-
-  const { data, error } = await query
-  if (error) {
-    console.error('Error fetching jobs:', error)
-    return []
+  if (filters?.state) query = query.eq("state", filters.state);
+  if (filters?.department) {
+    query = query.eq("department", filters.department);
   }
-  return data as Job[]
+  if (filters?.search) {
+    query = query.ilike("title", `%${filters.search}%`);
+  }
+  if (filters?.limit) query = query.limit(filters.limit);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching jobs:", error);
+    return [];
+  }
+
+  return data as Job[];
 }
 
-// Get single job by slug
 export async function getJobBySlug(slug: string) {
   const { data, error } = await supabase
-    .from('jobs')
-    .select('*')
-    .eq('slug', slug)
-    .single()
+    .from("jobs")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
   if (error) {
-    console.error('Error fetching job:', error)
-    return null
+    console.error("Error fetching job:", error);
+    return null;
   }
-  return data as Job
+
+  return data as Job;
 }
 
-// --- STUDY MATERIAL FUNCTIONS ---
-
-// Get study materials
 export async function getStudyMaterials(filters?: {
-  branch?: string
-  semester?: number
-  type?: string
-  limit?: number
+  branch?: string;
+  semester?: number;
+  type?: string;
+  limit?: number;
 }) {
   let query = supabase
-    .from('study_materials')
-    .select('*')
-    .order('created_at', { ascending: false })
+    .from("study_materials")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-  if (filters?.branch)   query = query.eq('branch', filters.branch)
-  if (filters?.semester) query = query.eq('semester', filters.semester)
-  if (filters?.type)     query = query.eq('type', filters.type)
-  if (filters?.limit)    query = query.limit(filters.limit)
-
-  const { data, error } = await query
-  if (error) {
-    console.error('Error fetching materials:', error)
-    return []
+  if (filters?.branch) query = query.eq("branch", filters.branch);
+  if (filters?.semester) {
+    query = query.eq("semester", filters.semester);
   }
-  return data as StudyMaterial[]
+  if (filters?.type) query = query.eq("type", filters.type);
+  if (filters?.limit) query = query.limit(filters.limit);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching materials:", error);
+    return [];
+  }
+
+  return data as StudyMaterial[];
 }
 
-// --- SCHOLARSHIP FUNCTIONS ---
-
-// Get scholarships
 export async function getScholarships(filters?: {
-  category?: string
-  limit?: number
+  category?: string;
+  limit?: number;
 }) {
   let query = supabase
-    .from('scholarships')
-    .select('*')
-    .order('last_date', { ascending: true })
+    .from("scholarships")
+    .select("*")
+    .order("application_end", { ascending: true });
 
-  if (filters?.category) query = query.eq('category', filters.category)
-  if (filters?.limit)    query = query.limit(filters.limit)
-
-  const { data, error } = await query
-  if (error) {
-    console.error('Error fetching scholarships:', error)
-    return []
+  if (filters?.category) {
+    query = query.eq("category", filters.category);
   }
-  return data as Scholarship[]
+  if (filters?.limit) {
+    query = query.limit(filters.limit);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching scholarships:", error);
+    return [];
+  }
+
+  return data as Scholarship[];
 }
 
-// --- REVIEW FUNCTIONS ---
-
-// Get reviews for a college
 export async function getCollegeReviews(collegeId: string) {
   const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .eq('college_id', collegeId)
-    .order('created_at', { ascending: false })
+    .from("reviews")
+    .select("*")
+    .eq("college_id", collegeId)
+    .order("created_at", { ascending: false });
 
   if (error) {
-    console.error('Error fetching reviews:', error)
-    return []
+    console.error("Error fetching reviews:", error);
+    return [];
   }
-  return data as Review[]
+
+  return data as Review[];
 }
 
-// Submit a review
 export async function submitReview(review: {
-  college_id: string
-  user_id: string
-  rating: number
-  review_text: string
+  college_id: string;
+  user_id: string;
+  rating: number;
+  review_text: string;
 }) {
   const { data, error } = await supabase
-    .from('reviews')
+    .from("reviews")
     .insert(review)
     .select()
-    .single()
+    .single();
 
   if (error) {
-    console.error('Error submitting review:', error)
-    return null
+    console.error("Error submitting review:", error);
+    return null;
   }
-  return data
+
+  return data;
 }
 
-// --- AUTH FUNCTIONS ---
-
-// Get current logged in user
 export async function getCurrentUser() {
-  const { data: { user }, error } = await supabase.auth.getUser()
-  if (error) return null
-  return user
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    return null;
+  }
+
+  return user;
 }
 
-// Sign out user
 export async function signOut() {
-  const { error } = await supabase.auth.signOut()
-  if (error) console.error('Error signing out:', error)
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error("Error signing out:", error);
+  }
 }
 
- export async function saveCollege(
+export async function saveCollege(
   userId: string,
   collegeName: string,
   collegeSlug: string
@@ -422,7 +431,8 @@ export async function getSavedColleges(userId: string) {
   const { data, error } = await supabase
     .from("saved_colleges")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Error fetching saved colleges:", error);
@@ -431,27 +441,40 @@ export async function getSavedColleges(userId: string) {
 
   return data;
 }
+
 export async function saveExam(
   userId: string,
   examName: string,
   examSlug: string
 ) {
-  const { error } = await supabase.from("saved_exams").insert({
-    user_id: userId,
-    exam_name: examName,
-    exam_slug: examSlug,
-  });
+  const { error } = await supabase
+    .from("saved_exams")
+    .insert({
+      user_id: userId,
+      exam_name: examName,
+      exam_slug: examSlug,
+    });
 
-  return !error;
+  if (error) {
+    console.error("Error saving exam:", error);
+    return false;
+  }
+
+  return true;
 }
 
 export async function getSavedExams(userId: string) {
   const { data, error } = await supabase
     .from("saved_exams")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
-  if (error) return [];
+  if (error) {
+    console.error("Error fetching saved exams:", error);
+    return [];
+  }
+
   return data;
 }
 
@@ -460,33 +483,49 @@ export async function saveJob(
   jobTitle: string,
   jobSlug: string
 ) {
-  const { error } = await supabase.from("saved_jobs").insert({
-    user_id: userId,
-    job_title: jobTitle,
-    job_slug: jobSlug,
-  });
+  const { error } = await supabase
+    .from("saved_jobs")
+    .insert({
+      user_id: userId,
+      job_title: jobTitle,
+      job_slug: jobSlug,
+    });
 
-  return !error;
+  if (error) {
+    console.error("Error saving job:", error);
+    return false;
+  }
+
+  return true;
 }
 
 export async function getSavedJobs(userId: string) {
   const { data, error } = await supabase
     .from("saved_jobs")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
-  if (error) return [];
+  if (error) {
+    console.error("Error fetching saved jobs:", error);
+    return [];
+  }
+
   return data;
-}export async function saveScholarship(
+}
+
+export async function saveScholarship(
   userId: string,
   scholarshipName: string,
   scholarshipSlug: string
 ) {
-  const { error } = await supabase.from("saved_scholarships").insert({
-    user_id: userId,
-    scholarship_name: scholarshipName,
-    scholarship_slug: scholarshipSlug,
-  });
+  const { error } = await supabase
+    .from("saved_scholarships")
+    .insert({
+      user_id: userId,
+      scholarship_name: scholarshipName,
+      scholarship_slug: scholarshipSlug,
+    });
 
   if (error) {
     console.error("Error saving scholarship:", error);
@@ -500,41 +539,11 @@ export async function getSavedScholarships(userId: string) {
   const { data, error } = await supabase
     .from("saved_scholarships")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Error fetching saved scholarships:", error);
-    return [];
-  }
-
-  return data;
-}export async function saveCareer(
-  userId: string,
-  careerTitle: string,
-  careerSlug: string
-) {
-  const { error } = await supabase.from("saved_careers").insert({
-    user_id: userId,
-    career_title: careerTitle,
-    career_slug: careerSlug,
-  });
-
-  if (error) {
-    console.error("Error saving career:", error);
-    return false;
-  }
-
-  return true;
-}
-
-export async function getSavedCareers(userId: string) {
-  const { data, error } = await supabase
-    .from("saved_careers")
-    .select("*")
-    .eq("user_id", userId);
-
-  if (error) {
-    console.error("Error fetching saved careers:", error);
     return [];
   }
 
@@ -544,11 +553,13 @@ export async function getSavedCareers(userId: string) {
   schoolName: string,
   schoolSlug: string
 ) {
-  const { error } = await supabase.from("saved_schools").insert({
-    user_id: userId,
-    school_name: schoolName,
-    school_slug: schoolSlug,
-  });
+  const { error } = await supabase
+    .from("saved_schools")
+    .insert({
+      user_id: userId,
+      school_name: schoolName,
+      school_slug: schoolSlug,
+    });
 
   if (error) {
     console.error("Error saving school:", error);
@@ -562,10 +573,45 @@ export async function getSavedSchools(userId: string) {
   const { data, error } = await supabase
     .from("saved_schools")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Error fetching saved schools:", error);
+    return [];
+  }
+
+  return data;
+}export async function saveCareer(
+  userId: string,
+  careerTitle: string,
+  careerSlug: string
+) {
+  const { error } = await supabase
+    .from("saved_careers")
+    .insert({
+      user_id: userId,
+      career_title: careerTitle,
+      career_slug: careerSlug,
+    });
+
+  if (error) {
+    console.error("Error saving career:", error);
+    return false;
+  }
+
+  return true;
+}
+
+export async function getSavedCareers(userId: string) {
+  const { data, error } = await supabase
+    .from("saved_careers")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching saved careers:", error);
     return [];
   }
 

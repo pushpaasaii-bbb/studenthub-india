@@ -13,8 +13,11 @@ export default function SaveScholarshipButton({
   scholarshipSlug,
 }: Props) {
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
+    setSaving(true);
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -31,23 +34,24 @@ export default function SaveScholarshipButton({
       scholarshipSlug
     );
 
+    setSaving(false);
+
     if (success) {
       setSaved(true);
       alert("Scholarship saved successfully!");
-      return;
+    } else {
+      alert("This scholarship may already be saved, or something went wrong.");
     }
-
-    alert("This scholarship may already be saved, or something went wrong.");
   };
 
   return (
     <button
       type="button"
       onClick={handleSave}
-      disabled={saved}
-      className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 disabled:cursor-not-allowed disabled:border-green-700 disabled:text-green-700 dark:hover:bg-slate-800"
+      disabled={saved || saving}
+      className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 disabled:cursor-not-allowed disabled:border-green-700 disabled:text-green-700"
     >
-      {saved ? "✅ Saved" : "🔖 Save Scholarship"}
+      {saved ? "✅ Saved" : saving ? "Saving..." : "♡ Save Scholarship"}
     </button>
   );
 }
