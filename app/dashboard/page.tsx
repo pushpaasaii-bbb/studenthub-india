@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkUser = async () => {
+    const loadDashboard = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -92,7 +92,7 @@ export default function DashboardPage() {
       setLoading(false);
     };
 
-    checkUser();
+    loadDashboard();
   }, []);
 
   const handleLogout = async () => {
@@ -123,13 +123,22 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="rounded-lg bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700"
-        >
-          Logout
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/dashboard/notifications"
+            className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+          >
+            Notification Settings
+          </Link>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-lg bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
