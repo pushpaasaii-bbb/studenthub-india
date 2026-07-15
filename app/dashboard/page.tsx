@@ -125,15 +125,22 @@ export default function DashboardPage() {
 
         <div className="flex flex-wrap gap-3">
           <Link
+            href="/dashboard/profile"
+            className="rounded-lg bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800"
+          >
+            My Profile
+          </Link>
+
+          <Link
             href="/dashboard/alerts"
-            className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100"
+            className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             Notifications
           </Link>
 
           <Link
             href="/dashboard/notifications"
-            className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+            className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-slate-800"
           >
             Notification Settings
           </Link>
