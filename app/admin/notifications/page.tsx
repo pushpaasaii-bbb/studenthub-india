@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 type NotificationType =
@@ -11,6 +11,7 @@ type NotificationType =
   | "general";
 
 export default function AdminNotificationsPage() {
+  const [targetEmail, setTargetEmail] = useState("");
   const [title, setTitle] = useState("StudentHub Test Notification");
   const [message, setMessage] = useState(
     "Your in-app notifications are working correctly."
@@ -21,7 +22,21 @@ export default function AdminNotificationsPage() {
   const [sending, setSending] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
 
-  const sendTestNotification = async (
+  useEffect(() => {
+    const loadAdminEmail = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user?.email) {
+        setTargetEmail(user.email);
+      }
+    };
+
+    loadAdminEmail();
+  }, []);
+
+  const sendNotification = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
@@ -29,14 +44,10 @@ export default function AdminNotificationsPage() {
     setResultMessage("");
 
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    const {
       data: { session },
     } = await supabase.auth.getSession();
 
-    if (!user || !session) {
+    if (!session) {
       setResultMessage("Please log in again before sending a notification.");
       setSending(false);
       return;
@@ -49,7 +60,7 @@ export default function AdminNotificationsPage() {
         Authorization: `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({
-        userId: user.id,
+        userEmail: targetEmail,
         title,
         message,
         notificationType,
@@ -65,44 +76,74 @@ export default function AdminNotificationsPage() {
       return;
     }
 
-    setResultMessage("Test notification sent successfully.");
+    setResultMessage(`Notification sent successfully to ${targetEmail}.`);
     setSending(false);
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold">Send Test Notification</h1>
+      <h1 className="text-3xl font-bold">Send Targeted Notification</h1>
 
       <p className="mt-2 text-slate-600">
-        Send a real in-app notification to your own administrator account.
+        Send one real in-app notification to a registered StudentHub user.
+        Broadcast notifications are not available.
       </p>
 
       <form
-        onSubmit={sendTestNotification}
+        onSubmit={sendNotification}
         className="mt-8 max-w-2xl rounded-xl border bg-white p-6 shadow-sm"
       >
         <div className="space-y-5">
           <div>
-            <label htmlFor="title" className="block text-sm font-semibold text-slate-700">
+            <label
+              htmlFor="targetEmail"
+              className="block text-sm font-semibold text-slate-700"
+            >
+              StudentHub User Email
+            </label>
+            <input
+              id="targetEmail"
+              type="email"
+              value={targetEmail}
+              onChange={(event) => setTargetEmail(event.target.value)}
+              placeholder="student@example.com"
+              required
+              className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-700"
+            />
+            <p className="mt-2 text-sm text-slate-500">
+              Only a registered StudentHub user can receive this notification.
+            </p>
+          </div>
+
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-sm font-semibold text-slate-700"
+            >
               Notification Title
             </label>
             <input
               id="title"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
+              maxLength={120}
               required
               className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-700"
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-semibold text-slate-700">
+            <label
+              htmlFor="message"
+              className="block text-sm font-semibold text-slate-700"
+            >
               Message
             </label>
             <textarea
               id="message"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
+              maxLength={2000}
               required
               rows={4}
               className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-700"
@@ -110,7 +151,10 @@ export default function AdminNotificationsPage() {
           </div>
 
           <div>
-            <label htmlFor="type" className="block text-sm font-semibold text-slate-700">
+            <label
+              htmlFor="type"
+              className="block text-sm font-semibold text-slate-700"
+            >
               Notification Type
             </label>
             <select
@@ -130,16 +174,22 @@ export default function AdminNotificationsPage() {
           </div>
 
           <div>
-            <label htmlFor="link" className="block text-sm font-semibold text-slate-700">
-              Optional Link
+            <label
+              htmlFor="link"
+              className="block text-sm font-semibold text-slate-700"
+            >
+              Optional Internal Link
             </label>
             <input
               id="link"
               value={link}
               onChange={(event) => setLink(event.target.value)}
-              placeholder="/exams/gate-2026"
+              placeholder="/exams"
               className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-700"
             />
+            <p className="mt-2 text-sm text-slate-500">
+              Use only a StudentHub path beginning with /.
+            </p>
           </div>
         </div>
 
@@ -154,7 +204,7 @@ export default function AdminNotificationsPage() {
           disabled={sending}
           className="mt-6 rounded-lg bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {sending ? "Sending..." : "Send Me a Test Notification"}
+          {sending ? "Sending..." : "Send Targeted Notification"}
         </button>
       </form>
     </div>
