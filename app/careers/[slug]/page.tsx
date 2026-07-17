@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SaveCareerButton from "../../components/SaveCareerButton";
+import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { getCareer } from "../../lib/careers";
 
 type Props = {
@@ -18,6 +19,13 @@ export default async function CareerDetailsPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <ViewHistoryTracker
+        contentType="career"
+        contentId={career.id}
+        contentSlug={career.slug}
+        contentTitle={career.title}
+      />
+
       <Link href="/jobs/a-z" className="font-semibold text-blue-700">
         ← Back to A–Z Careers
       </Link>

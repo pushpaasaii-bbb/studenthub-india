@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import SaveCollegeButton from "../../components/SaveCollegeButton";
+import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { supabase } from "../../lib/supabase";
 
 type College = {
@@ -143,6 +144,13 @@ export default function CollegeDetailsPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
+      <ViewHistoryTracker
+        contentType="college"
+        contentId={college.id}
+        contentSlug={college.slug}
+        contentTitle={college.name}
+      />
+
       <Link
         href="/colleges"
         className="text-sm font-semibold text-blue-700 hover:underline"

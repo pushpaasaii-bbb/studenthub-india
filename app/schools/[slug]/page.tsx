@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import SaveSchoolButton from "../../components/SaveSchoolButton";
+import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { supabase } from "../../lib/supabase";
 
 type School = {
@@ -85,6 +86,13 @@ export default function SchoolDetailsPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <ViewHistoryTracker
+        contentType="school"
+        contentId={school.id}
+        contentSlug={school.slug}
+        contentTitle={school.name}
+      />
+
       <Link
         href="/schools"
         className="text-sm font-semibold text-blue-700 hover:underline"

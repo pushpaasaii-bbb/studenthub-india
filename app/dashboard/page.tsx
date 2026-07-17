@@ -132,6 +132,13 @@ export default function DashboardPage() {
           </Link>
 
           <Link
+            href="/dashboard/history"
+            className="rounded-lg border border-purple-700 px-5 py-3 font-semibold text-purple-700 hover:bg-purple-50 dark:text-purple-400 dark:hover:bg-slate-800"
+          >
+            Recently Viewed
+          </Link>
+
+          <Link
             href="/dashboard/alerts"
             className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
           >

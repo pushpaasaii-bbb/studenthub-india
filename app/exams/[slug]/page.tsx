@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import SaveExamButton from "../../components/SaveExamButton";
+import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { useParams } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 
@@ -103,6 +104,13 @@ export default function ExamDetailsPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <ViewHistoryTracker
+        contentType="exam"
+        contentId={exam.id}
+        contentSlug={exam.slug}
+        contentTitle={exam.exam_name}
+      />
+
       <Link
         href="/exams"
         className="font-semibold text-blue-700 hover:underline"
@@ -167,21 +175,23 @@ export default function ExamDetailsPage() {
           </p>
         </div>
 
-        {exam.official_website && (
-          <a
-            href={exam.official_website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-lg bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800"
-          >
-            Visit Official Website
-            <SaveExamButton
-  examName={exam.exam_name}
-  examSlug={exam.slug}
-/>
-          </a>
+        <div className="mt-8 flex flex-wrap gap-3">
+          {exam.official_website && (
+            <a
+              href={exam.official_website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800"
+            >
+              Visit Official Website
+            </a>
+          )}
 
-        )}
+          <SaveExamButton
+            examName={exam.exam_name}
+            examSlug={exam.slug}
+          />
+        </div>
       </section>
     </main>
   );

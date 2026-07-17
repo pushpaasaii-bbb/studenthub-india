@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { supabase } from "../../lib/supabase";
 
 type Props = {
@@ -22,6 +23,13 @@ export default async function JobDetailsPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <ViewHistoryTracker
+        contentType="job"
+        contentId={job.id}
+        contentSlug={job.slug}
+        contentTitle={job.title}
+      />
+
       <Link href="/jobs-v2" className="font-semibold text-blue-700">
         ← Back to Jobs
       </Link>
