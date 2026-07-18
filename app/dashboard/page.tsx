@@ -139,6 +139,13 @@ export default function DashboardPage() {
           </Link>
 
           <Link
+            href="/dashboard/reminders"
+            className="rounded-lg border border-violet-700 px-5 py-3 font-semibold text-violet-700 hover:bg-violet-50 dark:text-violet-400 dark:hover:bg-slate-800"
+          >
+            Exam Reminders
+          </Link>
+
+          <Link
             href="/dashboard/alerts"
             className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
           >

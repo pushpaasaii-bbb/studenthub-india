@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import SaveExamButton from "../../components/SaveExamButton";
-import ViewHistoryTracker from "../../components/ViewHistoryTracker";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import ExamReminderButton from "../../components/ExamReminderButton";
+import SaveExamButton from "../../components/SaveExamButton";
 import { supabase } from "../../lib/supabase";
 
 type Exam = {
@@ -104,13 +104,6 @@ export default function ExamDetailsPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
-      <ViewHistoryTracker
-        contentType="exam"
-        contentId={exam.id}
-        contentSlug={exam.slug}
-        contentTitle={exam.exam_name}
-      />
-
       <Link
         href="/exams"
         className="font-semibold text-blue-700 hover:underline"
@@ -188,6 +181,13 @@ export default function ExamDetailsPage() {
           )}
 
           <SaveExamButton
+            examName={exam.exam_name}
+            examSlug={exam.slug}
+          />
+        </div>
+
+        <div className="mt-8">
+          <ExamReminderButton
             examName={exam.exam_name}
             examSlug={exam.slug}
           />
