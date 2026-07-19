@@ -11,6 +11,7 @@ export default function Footer() {
             <h2 className="text-xl font-bold text-blue-700">
               StudentHub India
             </h2>
+
             <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               Your complete student guide for colleges, exams, jobs,
               scholarships and useful student tools.
@@ -21,6 +22,7 @@ export default function Footer() {
             <h3 className="font-semibold text-slate-900 dark:text-white">
               Colleges
             </h3>
+
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
                 <Link href="/colleges">All Colleges</Link>
@@ -42,6 +44,7 @@ export default function Footer() {
             <h3 className="font-semibold text-slate-900 dark:text-white">
               Exams
             </h3>
+
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
                 <Link href="/exams">All Exams</Link>
@@ -59,6 +62,7 @@ export default function Footer() {
             <h3 className="font-semibold text-slate-900 dark:text-white">
               Tools
             </h3>
+
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
                 <Link href="/tools/cgpa-calculator">CGPA Calculator</Link>
@@ -74,8 +78,40 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-  <Link href="/compare">Compare Colleges</Link>
-</li>
+                <Link href="/compare">Compare Colleges</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-slate-900 dark:text-white">
+              Company
+            </h3>
+
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li>
+                <Link href="/about">About Us</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact Us</Link>
+              </li>
+              <li>
+                <Link href="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link href="/verification-policy">Verification Policy</Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/terms-and-conditions">
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/disclaimer">Disclaimer</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -84,37 +120,6 @@ export default function Footer() {
           © {currentYear} StudentHub India. All rights reserved.
         </div>
       </div>
-      <div>
-  <h3 className="font-semibold text-slate-900 dark:text-white">
-    Company
-  </h3>
-
-  <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-    <li>
-      <Link href="/about">About Us</Link>
-    </li>
-
-    <li>
-      <Link href="/contact">Contact Us</Link>
-    </li>
-
-    <li>
-      <Link href="/blog">Blog</Link>
-    </li>
-
-    <li>
-      <Link href="/privacy-policy">Privacy Policy</Link>
-    </li>
-
-    <li>
-      <Link href="/terms-and-conditions">Terms & Conditions</Link>
-    </li>
-
-    <li>
-      <Link href="/disclaimer">Disclaimer</Link>
-    </li>
-  </ul>
-</div>
     </footer>
   );
 }
