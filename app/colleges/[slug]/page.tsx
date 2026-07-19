@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import CollegeDetailsClient from "./CollegeDetailsClient";
@@ -45,10 +46,23 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://studenthub-india-c3rc7a3l-pushpaasaii-bbbs-projects.vercel.app"
-).replace(/\/$/, "");
+function getSiteUrl() {
+  const requestHeaders = headers();
+  const host =
+    requestHeaders.get("x-forwarded-host") || requestHeaders.get("host");
+  const protocol =
+    requestHeaders.get("x-forwarded-proto") ||
+    (host?.startsWith("localhost") ? "http" : "https");
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://studenthub-india-c3rc7a3l-pushpaasaii-bbbs-projects.vercel.app"
+  ).replace(/\/$/, "");
+}
 
 async function getPublishedCollege(slug: string) {
   const { data, error } = await supabase
@@ -97,7 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonicalUrl = `${siteUrl}/colleges/${college.slug}`;
+  const canonicalUrl = `${getSiteUrl()}/colleges/${college.slug}`;
   const description = getCollegeDescription(college);
 
   return {
@@ -123,7 +137,7 @@ export default async function CollegeDetailsPage({ params }: Props) {
     notFound();
   }
 
-  const canonicalUrl = `${siteUrl}/colleges/${college.slug}`;
+  const canonicalUrl = `${getSiteUrl()}/colleges/${college.slug}`;
 
   const collegeSchema = {
     "@context": "https://schema.org",
