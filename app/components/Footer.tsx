@@ -102,6 +102,9 @@ export default function Footer() {
                 <Link href="/verification-policy">Verification Policy</Link>
               </li>
               <li>
+                <Link href="/sources-policy">Sources Policy</Link>
+              </li>
+              <li>
                 <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
