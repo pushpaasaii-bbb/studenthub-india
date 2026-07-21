@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SaveCareerButton from "../../components/SaveCareerButton";
@@ -10,6 +12,54 @@ type Props = {
   };
 };
 
+function getSiteUrl() {
+  const requestHeaders = headers();
+
+  const host =
+    requestHeaders.get("x-forwarded-host") ||
+    requestHeaders.get("host") ||
+    "localhost:3000";
+
+  const protocol =
+    requestHeaders.get("x-forwarded-proto") ||
+    (host.includes("localhost") ? "http" : "https");
+
+  return `${protocol}://${host}`;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const career = await getCareer(params.slug);
+
+  if (!career) {
+    return {
+      title: "Career Not Found | StudentHub India",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/careers/${career.slug}`;
+  const description = `${career.title}. Explore qualification, skills, career roadmap, salary information, and future scope on StudentHub India.`;
+
+  return {
+    title: `${career.title} | StudentHub India`,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${career.title} | StudentHub India`,
+      description,
+      url: pageUrl,
+      type: "website",
+      siteName: "StudentHub India",
+    },
+  };
+}
+
 export default async function CareerDetailsPage({ params }: Props) {
   const career = await getCareer(params.slug);
 
@@ -17,8 +67,31 @@ export default async function CareerDetailsPage({ params }: Props) {
     notFound();
   }
 
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/careers/${career.slug}`;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: career.title,
+    url: pageUrl,
+    description: `${career.title}. Career information on StudentHub India.`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "StudentHub India",
+      url: siteUrl,
+    },
+  };
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <ViewHistoryTracker
         contentType="career"
         contentId={career.id}
@@ -47,17 +120,13 @@ export default async function CareerDetailsPage({ params }: Props) {
           <div className="rounded-xl bg-blue-50 p-4 dark:bg-slate-800">
             <p className="text-sm text-slate-500">Qualification</p>
 
-            <p className="mt-1 font-semibold">
-              {career.qualification}
-            </p>
+            <p className="mt-1 font-semibold">{career.qualification}</p>
           </div>
 
           <div className="rounded-xl bg-green-50 p-4 dark:bg-slate-800">
             <p className="text-sm text-slate-500">Average Salary</p>
 
-            <p className="mt-1 font-semibold">
-              {career.average_salary}
-            </p>
+            <p className="mt-1 font-semibold">{career.average_salary}</p>
           </div>
         </div>
 
