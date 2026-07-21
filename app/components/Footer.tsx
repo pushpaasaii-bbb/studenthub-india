@@ -105,6 +105,11 @@ export default function Footer() {
                 <Link href="/sources-policy">Sources Policy</Link>
               </li>
               <li>
+                <Link href="/editorial-policy">
+                  Editorial & Methodology Policy
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
