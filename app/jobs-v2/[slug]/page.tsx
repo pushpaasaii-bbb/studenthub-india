@@ -1,7 +1,25 @@
+import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ViewHistoryTracker from "../../components/ViewHistoryTracker";
 import { supabase } from "../../lib/supabase";
+
+type Job = {
+  id: number;
+  title: string;
+  slug: string;
+  category: string | null;
+  company: string | null;
+  location: string | null;
+  job_type: string | null;
+  salary: string | null;
+  qualification: string | null;
+  experience: string | null;
+  description: string | null;
+  apply_link: string | null;
+  status: string | null;
+};
 
 type Props = {
   params: {
@@ -9,20 +27,107 @@ type Props = {
   };
 };
 
-export default async function JobDetailsPage({ params }: Props) {
-  const { data: job, error } = await supabase
+function getSiteUrl() {
+  const requestHeaders = headers();
+
+  const host =
+    requestHeaders.get("x-forwarded-host") ||
+    requestHeaders.get("host") ||
+    "localhost:3000";
+
+  const protocol =
+    requestHeaders.get("x-forwarded-proto") ||
+    (host.includes("localhost") ? "http" : "https");
+
+  return `${protocol}://${host}`;
+}
+
+async function getPublishedJob(slug: string) {
+  const { data, error } = await supabase
     .from("jobs_v2")
-    .select("*")
-    .eq("slug", params.slug)
+    .select(
+      "id, title, slug, category, company, location, job_type, salary, qualification, experience, description, apply_link, status"
+    )
+    .eq("slug", slug)
     .eq("status", "published")
     .single();
 
-  if (error || !job) {
+  if (error || !data) {
+    return null;
+  }
+
+  return data as Job;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const job = await getPublishedJob(params.slug);
+
+  if (!job) {
+    return {
+      title: "Job Not Found | StudentHub India",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/jobs-v2/${job.slug}`;
+  const description = `${job.title}${
+    job.company ? ` at ${job.company}` : ""
+  }${job.location ? ` in ${job.location}` : ""}. Check verified job details on StudentHub India.`;
+
+  return {
+    title: `${job.title} | StudentHub India`,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${job.title} | StudentHub India`,
+      description,
+      url: pageUrl,
+      type: "website",
+      siteName: "StudentHub India",
+    },
+  };
+}
+
+export default async function JobDetailsPage({ params }: Props) {
+  const job = await getPublishedJob(params.slug);
+
+  if (!job) {
     notFound();
   }
 
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/jobs-v2/${job.slug}`;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: job.title,
+    url: pageUrl,
+    description: `${job.title}${
+      job.company ? ` at ${job.company}` : ""
+    }.`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "StudentHub India",
+      url: siteUrl,
+    },
+  };
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <ViewHistoryTracker
         contentType="job"
         contentId={job.id}
