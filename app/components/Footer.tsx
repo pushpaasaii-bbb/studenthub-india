@@ -110,6 +110,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/correction-policy">Correction Policy</Link>
+              </li>
+              <li>
                 <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
