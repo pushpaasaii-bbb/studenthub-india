@@ -14,6 +14,29 @@ const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 ).replace(/\/$/, "");
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "StudentHub India",
+  url: siteUrl,
+  description:
+    "A trusted India-focused student platform for colleges, exams, jobs, scholarships, career guides, and student tools.",
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "StudentHub India",
+  url: siteUrl,
+  description:
+    "Find colleges, entrance exams, jobs, scholarships, career guides and useful student tools across India.",
+  publisher: {
+    "@type": "Organization",
+    name: "StudentHub India",
+    url: siteUrl,
+  },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
@@ -84,6 +107,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema).replace(
+              /</g,
+              "\\u003c"
+            ),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema).replace(/</g, "\\u003c"),
+          }}
+        />
+
         <Navbar />
         <main>{children}</main>
         <Footer />
