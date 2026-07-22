@@ -1,9 +1,9 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
 import Papa from "papaparse";
 import { supabase } from "../../lib/supabase";
-
 
 const BATCH_SIZE = 100;
 const MAX_ROWS_PER_IMPORT = 1000;
@@ -148,6 +148,52 @@ export default function AdminImportPage() {
         `Your CSV contains duplicate slugs, for example: ${duplicateSlugs[0]}. Each row must have a unique slug.`
       );
       return false;
+    }
+
+    const isValidHttpUrl = (value: string) => {
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" || url.protocol === "http:";
+      } catch {
+        return false;
+      }
+    };
+
+    const invalidUrlIndex = rows.findIndex((row) => {
+      const urls = [row.official_website, row.source_url].filter(Boolean);
+
+      return urls.some((url) => !isValidHttpUrl(url.trim()));
+    });
+
+    if (invalidUrlIndex !== -1) {
+      alert(
+        `Row ${invalidUrlIndex + 2} has an invalid official website or source URL. Use a full http or https URL.`
+      );
+      return false;
+    }
+
+    if (importType === "exams") {
+      const unsafePublishedExamIndex = rows.findIndex((row) => {
+        const status = cleanStatus(row.status);
+
+        if (status !== "published") {
+          return false;
+        }
+
+        return (
+          !cleanText(row.source_name) ||
+          !cleanText(row.source_url) ||
+          !cleanDate(row.last_verified_at) ||
+          cleanVerificationStatus(row.verification_status) !== "verified"
+        );
+      });
+
+      if (unsafePublishedExamIndex !== -1) {
+        alert(
+          `Row ${unsafePublishedExamIndex + 2} cannot be published. Published exams require source_name, source_url, last_verified_at, and verification_status set to verified.`
+        );
+        return false;
+      }
     }
 
     return true;
@@ -514,28 +560,26 @@ export default function AdminImportPage() {
 
   return (
     <div>
-     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-  <div>
-    <h1 className="text-3xl font-bold">Bulk Import</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Bulk Import</h1>
 
-    <p className="mt-2 text-slate-600">
-      Import up to {MAX_ROWS_PER_IMPORT} CSV rows at a time. Every
-      import is recorded in import history.
-    </p>
-  </div>
+          <p className="mt-2 text-slate-600">
+            Import up to {MAX_ROWS_PER_IMPORT} CSV rows at a time. Every import
+            is recorded in import history.
+          </p>
+        </div>
 
-  <Link
-    href="/admin/import/large-colleges"
-    className="inline-flex items-center justify-center rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
-  >
-    Large College Import →
-  </Link>
-</div>
+        <Link
+          href="/admin/import/large-colleges"
+          className="inline-flex items-center justify-center rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+        >
+          Large College Import →
+        </Link>
+      </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold">
-          Select Import Type
-        </h2>
+        <h2 className="text-xl font-semibold">Select Import Type</h2>
 
         <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
           {importTypes.map((type) => (
@@ -565,9 +609,7 @@ export default function AdminImportPage() {
       <div className="mt-8 rounded-xl border bg-white p-6 shadow-sm">
         <p className="mb-3 font-semibold">
           Current Import Type:{" "}
-          <span className="capitalize text-blue-700">
-            {importType}
-          </span>
+          <span className="capitalize text-blue-700">{importType}</span>
         </p>
 
         <input
@@ -582,9 +624,7 @@ export default function AdminImportPage() {
         {selectedFileName && (
           <p className="mt-3 text-sm text-slate-600">
             Selected file:{" "}
-            <span className="font-semibold">
-              {selectedFileName}
-            </span>
+            <span className="font-semibold">{selectedFileName}</span>
           </p>
         )}
 
@@ -625,8 +665,8 @@ export default function AdminImportPage() {
           </h2>
 
           <p className="mt-2 text-sm text-red-700">
-            Download the report, correct the CSV rows, then import only
-            those corrected rows again.
+            Download the report, correct the CSV rows, then import only those
+            corrected rows again.
           </p>
 
           <button
