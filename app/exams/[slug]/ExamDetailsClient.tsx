@@ -15,6 +15,10 @@ type Exam = {
   application_end: string | null;
   exam_date: string | null;
   official_website: string | null;
+  source_name: string | null;
+  source_url: string | null;
+  last_verified_at: string | null;
+  verification_status: string | null;
   status: string | null;
 };
 
@@ -32,6 +36,11 @@ export default function ExamDetailsClient({ exam }: Props) {
       year: "numeric",
     });
   };
+
+  const isOfficiallyVerified =
+    exam.verification_status === "verified" &&
+    Boolean(exam.source_name) &&
+    Boolean(exam.source_url);
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
@@ -51,6 +60,12 @@ export default function ExamDetailsClient({ exam }: Props) {
           <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">
             {exam.level || "Level not listed"}
           </span>
+
+          {isOfficiallyVerified && (
+            <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+              Official source verified
+            </span>
+          )}
         </div>
 
         <h1 className="mt-5 text-4xl font-bold text-slate-900 dark:text-white">
@@ -98,6 +113,28 @@ export default function ExamDetailsClient({ exam }: Props) {
             information.
           </p>
         </div>
+
+        {isOfficiallyVerified && (
+          <section className="mt-8 rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-900 dark:bg-green-950/30">
+            <h2 className="text-lg font-bold text-green-900 dark:text-green-200">
+              Official Source
+            </h2>
+
+            <p className="mt-2 text-sm leading-6 text-green-900 dark:text-green-100">
+              Verified from {exam.source_name} on{" "}
+              {formatDate(exam.last_verified_at)}.
+            </p>
+
+            <a
+              href={exam.source_url || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex font-semibold text-green-800 underline hover:text-green-950 dark:text-green-300 dark:hover:text-green-100"
+            >
+              View official source ↗
+            </a>
+          </section>
+        )}
 
         <div className="mt-8 flex flex-wrap gap-3">
           {exam.official_website && (

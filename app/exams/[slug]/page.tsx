@@ -17,6 +17,10 @@ type Exam = {
   application_end: string | null;
   exam_date: string | null;
   official_website: string | null;
+  source_name: string | null;
+  source_url: string | null;
+  last_verified_at: string | null;
+  verification_status: string | null;
   status: string | null;
 };
 
@@ -45,7 +49,7 @@ async function getPublishedExam(slug: string) {
   const { data, error } = await supabase
     .from("exams")
     .select(
-      "id, exam_name, slug, category, conducting_body, level, application_start, application_end, exam_date, official_website, status"
+      "id, exam_name, slug, category, conducting_body, level, application_start, application_end, exam_date, official_website, source_name, source_url, last_verified_at, verification_status, status"
     )
     .eq("slug", slug)
     .eq("status", "published")

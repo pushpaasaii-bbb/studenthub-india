@@ -1,0 +1,4 @@
+exam_name,slug,category,conducting_body,level,application_start,application_end,exam_date,official_website,source_name,source_url,last_verified_at,verification_status,status
+CUET PG 2026,cuet-pg-2026,Postgraduate Entrance,National Testing Agency (NTA),National,,,,https://exams.nta.nic.in/cuet-pg/,National Testing Agency (NTA),https://exams.nta.nic.in/cuet-pg/,2026-07-22,verified,published
+CMAT 2026,cmat-2026,Management Entrance,National Testing Agency (NTA),National,,,,https://cmat.nta.nic.in/,National Testing Agency (NTA),https://cmat.nta.nic.in/,2026-07-22,verified,published
+Joint CSIR-UGC NET June 2026,joint-csir-ugc-net-june-2026,Research Eligibility,National Testing Agency (NTA),National,,,,https://csirnet.nta.nic.in/,National Testing Agency (NTA),https://csirnet.nta.nic.in/,2026-07-22,verified,published

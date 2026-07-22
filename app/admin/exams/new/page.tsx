@@ -5,6 +5,8 @@ import { supabase } from "../../../lib/supabase";
 import AdminInput from "../../../components/admin/AdminInput";
 import AdminButton from "../../../components/admin/AdminButton";
 
+type RecordStatus = "published" | "draft" | "review" | "archived";
+
 export default function NewExamPage() {
   const [examName, setExamName] = useState("");
   const [slug, setSlug] = useState("");
@@ -15,8 +17,23 @@ export default function NewExamPage() {
   const [applicationEnd, setApplicationEnd] = useState("");
   const [examDate, setExamDate] = useState("");
   const [officialWebsite, setOfficialWebsite] = useState("");
-  const [status, setStatus] = useState("published");
+
+  const [sourceName, setSourceName] = useState("");
+  const [sourceUrl, setSourceUrl] = useState("");
+  const [lastVerifiedAt, setLastVerifiedAt] = useState("");
+  const [verificationStatus, setVerificationStatus] = useState("unverified");
+
+  const [status, setStatus] = useState<RecordStatus>("draft");
   const [saving, setSaving] = useState(false);
+
+  const isValidWebUrl = (value: string) => {
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" || url.protocol === "http:";
+    } catch {
+      return false;
+    }
+  };
 
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -24,6 +41,30 @@ export default function NewExamPage() {
     if (!examName.trim() || !slug.trim()) {
       alert("Exam name and slug are required.");
       return;
+    }
+
+    if (officialWebsite.trim() && !isValidWebUrl(officialWebsite.trim())) {
+      alert("Official website must be a valid http or https URL.");
+      return;
+    }
+
+    if (sourceUrl.trim() && !isValidWebUrl(sourceUrl.trim())) {
+      alert("Source URL must be a valid http or https URL.");
+      return;
+    }
+
+    if (status === "published") {
+      if (
+        !sourceName.trim() ||
+        !sourceUrl.trim() ||
+        !lastVerifiedAt ||
+        verificationStatus !== "verified"
+      ) {
+        alert(
+          "A published exam requires source name, source URL, last verified date, and Official source verification."
+        );
+        return;
+      }
     }
 
     setSaving(true);
@@ -38,6 +79,12 @@ export default function NewExamPage() {
       application_end: applicationEnd || null,
       exam_date: examDate || null,
       official_website: officialWebsite.trim() || null,
+      source_name: sourceName.trim() || null,
+      source_url: sourceUrl.trim() || null,
+      last_verified_at: lastVerifiedAt
+        ? new Date(`${lastVerifiedAt}T00:00:00`).toISOString()
+        : null,
+      verification_status: verificationStatus,
       status,
     });
 
@@ -58,7 +105,8 @@ export default function NewExamPage() {
       <h1 className="text-3xl font-bold">Add New Exam</h1>
 
       <p className="mt-2 text-slate-600">
-        Add a new examination to StudentHub India.
+        Add a new examination to StudentHub India. New exams start as drafts
+        until their official source is verified.
       </p>
 
       <form onSubmit={handleSave} className="mt-8 space-y-6">
@@ -143,6 +191,60 @@ export default function NewExamPage() {
           placeholder="https://..."
         />
 
+        <div className="border-t border-slate-200 pt-6">
+          <h2 className="text-xl font-bold text-slate-900">
+            Source Verification
+          </h2>
+
+          <p className="mt-2 text-sm text-slate-600">
+            Published exams must use an official source and include the date
+            when the information was last checked.
+          </p>
+        </div>
+
+        <AdminInput
+          label="Source Name"
+          value={sourceName}
+          onChange={setSourceName}
+          placeholder="Example: National Testing Agency"
+        />
+
+        <AdminInput
+          label="Source URL"
+          value={sourceUrl}
+          onChange={setSourceUrl}
+          placeholder="https://..."
+        />
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold text-slate-700">
+            Last Verified Date
+          </label>
+
+          <input
+            type="date"
+            value={lastVerifiedAt}
+            onChange={(event) => setLastVerifiedAt(event.target.value)}
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-blue-600"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold text-slate-700">
+            Verification Status
+          </label>
+
+          <select
+            value={verificationStatus}
+            onChange={(event) => setVerificationStatus(event.target.value)}
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-blue-600"
+          >
+            <option value="unverified">Unverified</option>
+            <option value="reviewed">Reviewed</option>
+            <option value="verified">Official source verified</option>
+          </select>
+        </div>
+
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-700">
             Status
@@ -150,12 +252,14 @@ export default function NewExamPage() {
 
           <select
             value={status}
-            onChange={(event) => setStatus(event.target.value)}
+            onChange={(event) =>
+              setStatus(event.target.value as RecordStatus)
+            }
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-blue-600"
           >
-            <option value="published">Published</option>
             <option value="draft">Draft</option>
             <option value="review">Review</option>
+            <option value="published">Published</option>
             <option value="archived">Archived</option>
           </select>
         </div>
