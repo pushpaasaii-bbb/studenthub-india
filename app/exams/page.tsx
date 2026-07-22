@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 
 type Exam = {
   id: number;
@@ -14,6 +13,11 @@ type Exam = {
   application_end: string | null;
   exam_date: string | null;
   official_website: string | null;
+};
+
+type ExamsApiResponse = {
+  exams: Exam[];
+  totalExams: number;
 };
 
 const PAGE_SIZE = 12;
@@ -45,67 +49,74 @@ export default function ExamsPage() {
   const totalPages = Math.max(1, Math.ceil(totalExams / PAGE_SIZE));
 
   useEffect(() => {
-    let isActive = true;
+    const controller = new AbortController();
 
     const loadExams = async () => {
       setLoading(true);
       setErrorMessage("");
 
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-
-      let query = supabase
-        .from("exams")
-        .select(
-          "id, exam_name, slug, category, conducting_body, level, application_end, exam_date, official_website",
-          { count: "exact" }
-        )
-        .eq("status", "published")
-        .order("exam_date", {
-          ascending: true,
-          nullsFirst: false,
-        })
-        .range(from, to);
+      const searchParams = new URLSearchParams({
+        page: String(page),
+        pageSize: String(PAGE_SIZE),
+      });
 
       if (search.trim()) {
-        query = query.ilike("exam_name", `%${search.trim()}%`);
+        searchParams.set("search", search.trim());
       }
 
       if (categoryFilter.trim()) {
-        query = query.ilike(
-          "category",
-          `%${categoryFilter.trim()}%`
-        );
+        searchParams.set("category", categoryFilter.trim());
       }
 
       if (levelFilter.trim()) {
-        query = query.ilike("level", `%${levelFilter.trim()}%`);
+        searchParams.set("level", levelFilter.trim());
       }
 
-      const { data, error, count } = await query;
+      try {
+        const response = await fetch(
+          `/api/exams?${searchParams.toString()}`,
+          {
+            signal: controller.signal,
+            cache: "no-store",
+          }
+        );
 
-      if (!isActive) {
-        return;
-      }
+        const result = (await response.json()) as
+          | ExamsApiResponse
+          | { error?: string };
 
-      if (error) {
+        if (!response.ok) {
+          throw new Error(
+            "error" in result && result.error
+              ? result.error
+              : "Could not load exams right now."
+          );
+        }
+
+        const examResult = result as ExamsApiResponse;
+
+        setExams(examResult.exams || []);
+        setTotalExams(examResult.totalExams || 0);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
         console.error("Error loading exams:", error);
         setErrorMessage("Could not load exams right now.");
         setExams([]);
         setTotalExams(0);
-        setLoading(false);
-        return;
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
-
-      setExams(data || []);
-      setTotalExams(count || 0);
-      setLoading(false);
     };
 
     loadExams();
 
     return () => {
-      isActive = false;
+      controller.abort();
     };
   }, [page, search, categoryFilter, levelFilter]);
 
@@ -167,7 +178,9 @@ export default function ExamsPage() {
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            {loading ? "Loading exams..." : `${totalExams} published exams found`}
+            {loading
+              ? "Loading exams..."
+              : `${totalExams} published exams found`}
           </p>
 
           <button
@@ -220,7 +233,9 @@ export default function ExamsPage() {
 
                 <div className="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
                   <p>
-                    <span className="font-semibold">Application deadline:</span>{" "}
+                    <span className="font-semibold">
+                      Application deadline:
+                    </span>{" "}
                     {formatDate(exam.application_end)}
                   </p>
 
@@ -262,9 +277,7 @@ export default function ExamsPage() {
               <button
                 type="button"
                 onClick={() =>
-                  setPage((currentPage) =>
-                    Math.max(1, currentPage - 1)
-                  )
+                  setPage((currentPage) => Math.max(1, currentPage - 1))
                 }
                 disabled={page === 1}
                 className="rounded-lg border px-4 py-2 font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-300"
