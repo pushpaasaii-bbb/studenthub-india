@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import CollegeCard from "../components/CollegeCard";
-import { supabase } from "../lib/supabase";
 
 type College = {
   id: number;
@@ -12,6 +11,12 @@ type College = {
   state: string | null;
   college_type: string | null;
   average_fees: string | null;
+};
+
+type CollegesApiResponse = {
+  colleges?: College[];
+  totalColleges?: number;
+  error?: string;
 };
 
 const PAGE_SIZE = 12;
@@ -31,67 +36,54 @@ export default function CollegesPage() {
   const totalPages = Math.max(1, Math.ceil(totalColleges / PAGE_SIZE));
 
   useEffect(() => {
-    let isActive = true;
+    const controller = new AbortController();
 
     const loadColleges = async () => {
       setLoading(true);
       setErrorMessage("");
 
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
+      const params = new URLSearchParams({
+        page: String(page),
+        pageSize: String(PAGE_SIZE),
+        search,
+        collegeType,
+        state: stateFilter,
+      });
 
-      let query = supabase
-        .from("colleges")
-        .select(
-          "id, name, slug, city, state, college_type, average_fees",
-          { count: "exact" }
-        )
-        .eq("status", "published")
-        .order("nirf_rank", {
-          ascending: true,
-          nullsFirst: false,
-        })
-        .range(from, to);
+      try {
+        const response = await fetch(`/api/colleges?${params.toString()}`, {
+          signal: controller.signal,
+          cache: "no-store",
+        });
 
-      if (search.trim()) {
-        query = query.ilike("name", `%${search.trim()}%`);
-      }
+        const result = (await response.json()) as CollegesApiResponse;
 
-      if (collegeType.trim()) {
-        query = query.ilike(
-          "college_type",
-          `%${collegeType.trim()}%`
-        );
-      }
+        if (!response.ok) {
+          throw new Error(result.error || "Could not load colleges right now.");
+        }
 
-      if (stateFilter.trim()) {
-        query = query.ilike("state", `%${stateFilter.trim()}%`);
-      }
+        setColleges(result.colleges || []);
+        setTotalColleges(result.totalColleges || 0);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
 
-      const { data, error, count } = await query;
-
-      if (!isActive) {
-        return;
-      }
-
-      if (error) {
         console.error("Error loading colleges:", error);
         setErrorMessage("Could not load colleges right now.");
         setColleges([]);
         setTotalColleges(0);
-        setLoading(false);
-        return;
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
-
-      setColleges(data || []);
-      setTotalColleges(count || 0);
-      setLoading(false);
     };
 
     loadColleges();
 
     return () => {
-      isActive = false;
+      controller.abort();
     };
   }, [page, search, collegeType, stateFilter]);
 
@@ -206,9 +198,7 @@ export default function CollegesPage() {
               <button
                 type="button"
                 onClick={() =>
-                  setPage((currentPage) =>
-                    Math.max(1, currentPage - 1)
-                  )
+                  setPage((currentPage) => Math.max(1, currentPage - 1))
                 }
                 disabled={page === 1}
                 className="rounded-lg border px-4 py-2 font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-300"
