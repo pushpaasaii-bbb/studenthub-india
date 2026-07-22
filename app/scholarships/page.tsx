@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 
 type Scholarship = {
   id: number;
@@ -14,6 +13,11 @@ type Scholarship = {
   amount: string | null;
   application_end: string | null;
   official_website: string | null;
+};
+
+type ScholarshipsApiResponse = {
+  scholarships: Scholarship[];
+  totalScholarships: number;
 };
 
 const PAGE_SIZE = 12;
@@ -36,67 +40,76 @@ export default function ScholarshipsPage() {
   );
 
   useEffect(() => {
-    let isActive = true;
+    const controller = new AbortController();
 
     const loadScholarships = async () => {
       setLoading(true);
       setErrorMessage("");
 
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-
-      let query = supabase
-        .from("scholarships")
-        .select(
-          "id, name, slug, provider, category, eligibility, amount, application_end, official_website",
-          { count: "exact" }
-        )
-        .eq("status", "published")
-        .order("application_end", { ascending: true })
-        .range(from, to);
+      const searchParams = new URLSearchParams({
+        page: String(page),
+        pageSize: String(PAGE_SIZE),
+      });
 
       if (search.trim()) {
-        query = query.ilike("name", `%${search.trim()}%`);
+        searchParams.set("search", search.trim());
       }
 
       if (providerFilter.trim()) {
-        query = query.ilike(
-          "provider",
-          `%${providerFilter.trim()}%`
-        );
+        searchParams.set("provider", providerFilter.trim());
       }
 
       if (categoryFilter.trim()) {
-        query = query.ilike(
-          "category",
-          `%${categoryFilter.trim()}%`
+        searchParams.set("category", categoryFilter.trim());
+      }
+
+      try {
+        const response = await fetch(
+          `/api/scholarships?${searchParams.toString()}`,
+          {
+            signal: controller.signal,
+            cache: "no-store",
+          }
         );
-      }
 
-      const { data, error, count } = await query;
+        const result = (await response.json()) as
+          | ScholarshipsApiResponse
+          | { error?: string };
 
-      if (!isActive) {
-        return;
-      }
+        if (!response.ok) {
+          throw new Error(
+            "error" in result && result.error
+              ? result.error
+              : "Could not load scholarships right now."
+          );
+        }
 
-      if (error) {
+        const scholarshipResult = result as ScholarshipsApiResponse;
+
+        setScholarships(scholarshipResult.scholarships || []);
+        setTotalScholarships(
+          scholarshipResult.totalScholarships || 0
+        );
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
         console.error("Could not load scholarships:", error);
         setErrorMessage("Could not load scholarships right now.");
         setScholarships([]);
         setTotalScholarships(0);
-        setLoading(false);
-        return;
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
-
-      setScholarships(data || []);
-      setTotalScholarships(count || 0);
-      setLoading(false);
     };
 
     loadScholarships();
 
     return () => {
-      isActive = false;
+      controller.abort();
     };
   }, [page, search, providerFilter, categoryFilter]);
 
@@ -267,9 +280,7 @@ export default function ScholarshipsPage() {
               <button
                 type="button"
                 onClick={() =>
-                  setPage((currentPage) =>
-                    Math.max(1, currentPage - 1)
-                  )
+                  setPage((currentPage) => Math.max(1, currentPage - 1))
                 }
                 disabled={page === 1}
                 className="rounded-lg border px-4 py-2 font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-300"
