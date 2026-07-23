@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 
 type School = {
   id: number;
@@ -13,6 +12,11 @@ type School = {
   type: string | null;
   board: string | null;
   website: string | null;
+};
+
+type SchoolsApiResponse = {
+  schools: School[];
+  totalSchools: number;
 };
 
 const PAGE_SIZE = 12;
@@ -32,61 +36,74 @@ export default function SchoolsPage() {
   const totalPages = Math.max(1, Math.ceil(totalSchools / PAGE_SIZE));
 
   useEffect(() => {
-    let isActive = true;
+    const controller = new AbortController();
 
     const loadSchools = async () => {
       setLoading(true);
       setErrorMessage("");
 
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-
-      let query = supabase
-        .from("schools")
-        .select(
-          "id, name, slug, state, city, type, board, website",
-          { count: "exact" }
-        )
-        .eq("status", "published")
-        .order("name", { ascending: true })
-        .range(from, to);
+      const searchParams = new URLSearchParams({
+        page: String(page),
+        pageSize: String(PAGE_SIZE),
+      });
 
       if (search.trim()) {
-        query = query.ilike("name", `%${search.trim()}%`);
+        searchParams.set("search", search.trim());
       }
 
       if (typeFilter.trim()) {
-        query = query.ilike("type", `%${typeFilter.trim()}%`);
+        searchParams.set("type", typeFilter.trim());
       }
 
       if (boardFilter.trim()) {
-        query = query.ilike("board", `%${boardFilter.trim()}%`);
+        searchParams.set("board", boardFilter.trim());
       }
 
-      const { data, error, count } = await query;
+      try {
+        const response = await fetch(
+          `/api/schools?${searchParams.toString()}`,
+          {
+            signal: controller.signal,
+            cache: "no-store",
+          }
+        );
 
-      if (!isActive) {
-        return;
-      }
+        const result = (await response.json()) as
+          | SchoolsApiResponse
+          | { error?: string };
 
-      if (error) {
+        if (!response.ok) {
+          throw new Error(
+            "error" in result && result.error
+              ? result.error
+              : "Could not load schools right now."
+          );
+        }
+
+        const schoolResult = result as SchoolsApiResponse;
+
+        setSchools(schoolResult.schools || []);
+        setTotalSchools(schoolResult.totalSchools || 0);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
         console.error("Error loading schools:", error);
         setErrorMessage("Could not load schools right now.");
         setSchools([]);
         setTotalSchools(0);
-        setLoading(false);
-        return;
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
-
-      setSchools(data || []);
-      setTotalSchools(count || 0);
-      setLoading(false);
     };
 
     loadSchools();
 
     return () => {
-      isActive = false;
+      controller.abort();
     };
   }, [page, search, typeFilter, boardFilter]);
 
@@ -233,9 +250,7 @@ export default function SchoolsPage() {
               <button
                 type="button"
                 onClick={() =>
-                  setPage((currentPage) =>
-                    Math.max(1, currentPage - 1)
-                  )
+                  setPage((currentPage) => Math.max(1, currentPage - 1))
                 }
                 disabled={page === 1}
                 className="rounded-lg border px-4 py-2 font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-300"
