@@ -15,6 +15,10 @@ type School = {
   type: string | null;
   board: string | null;
   website: string | null;
+  source_name: string | null;
+  source_url: string | null;
+  last_verified_at: string | null;
+  verification_status: string | null;
   status: string | null;
 };
 
@@ -42,7 +46,9 @@ function getSiteUrl() {
 async function getPublishedSchool(slug: string) {
   const { data, error } = await supabase
     .from("schools")
-    .select("id, name, slug, state, city, type, board, website, status")
+    .select(
+      "id, name, slug, state, city, type, board, website, source_name, source_url, last_verified_at, verification_status, status"
+    )
     .eq("slug", slug)
     .eq("status", "published")
     .single();
