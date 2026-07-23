@@ -96,9 +96,9 @@ export async function POST(request: Request) {
       );
     }
 
-    if (link && !link.startsWith("/")) {
+    if (link && (!link.startsWith("/") || link.startsWith("//"))) {
       return NextResponse.json(
-        { error: "Link must be an internal path starting with /." },
+        { error: "Link must be a safe internal path starting with /." },
         { status: 400 }
       );
     }
@@ -112,7 +112,7 @@ export async function POST(request: Request) {
         await supabaseAdmin
           .from("profiles")
           .select("id")
-          .ilike("email", targetEmail)
+          .eq("email", targetEmail)
           .maybeSingle();
 
       if (targetProfileError || !targetProfile) {
@@ -143,6 +143,30 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "The selected user does not exist." },
         { status: 404 }
+      );
+    }
+
+    const { data: rateLimitAllowed, error: rateLimitError } =
+      await supabaseAdmin.rpc("consume_admin_notification_rate_limit", {
+        p_admin_user_id: user.id,
+      });
+
+    if (rateLimitError) {
+      console.error("Notification rate-limit check failed:", rateLimitError);
+
+      return NextResponse.json(
+        { error: "Could not send notification right now." },
+        { status: 500 }
+      );
+    }
+
+    if (!rateLimitAllowed) {
+      return NextResponse.json(
+        {
+          error:
+            "Notification limit reached. Please wait before sending more notifications.",
+        },
+        { status: 429 }
       );
     }
 
